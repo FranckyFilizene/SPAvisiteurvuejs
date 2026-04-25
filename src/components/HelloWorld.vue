@@ -8,5 +8,5 @@ const count = ref(0)
 </script>
 
 <template>
-  <h1 class="bg-amber-300">hello</h1>
+  <h1 class="bg-amber-300">Hello World</h1>
 </template>
