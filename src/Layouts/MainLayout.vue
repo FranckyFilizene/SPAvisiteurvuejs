@@ -25,10 +25,11 @@
     </div>
 </template>
 <script setup>
-   const handlelogout=()=>{
+ const handlelogout = () => {
     localStorage.removeItem('token');
-    router.push('/login')
-   }
+    // On change l'URL de manière brute, ce qui réinitialise tout proprement
+    window.location.href = '/login'; 
+};
 </script>
 <style scoped>
 .layout{

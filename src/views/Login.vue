@@ -13,18 +13,18 @@
                 <div class="bg-white w-full px-2 py-2 rounded-lg shadow-lg">
                     <input 
                     v-model="password"
-                    type="password" 
+                    :type="showpassword ? 'text' : 'password'" 
                     placeholder="Votre Mot de passe" 
                     class="w-full focus:outline-none">
                 </div>
                 <router-link to="/inscription" class="text-blue-500 hover:underline">
                     Mot de passe oublié?
                 </router-link>
-                <div>
-                    <input type="checkbox" name="" id="">
-                    <span>
+                <div class="flex items-center gap-2">
+                    <input type="checkbox" v-model="showpassword" id="check">
+                    <label for="check" class="cursor-pointer select-none">
                         afficher les mots de passe
-                    </span>
+                    </label>
                 </div>
                 <div class="flex justify-between">
                     <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-lg duration-500 hover:bg-blue-900 font-semibold shadow">Login</button>
@@ -39,23 +39,45 @@
        </div>
     </div>
 </template>
+
 <script setup>
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
-import axios from 'axios';
+
 
 const nom = ref('');
 const password = ref('');
 const error = ref('');
 const router = useRouter();
+const showpassword = ref(false); // Gère l'affichage (true/false)
 
-const handleLogin = async () => {
+// Fonction simple de login avec Admin / password
+const handleLogin = () => {
+    error.value = ''; // Réinitialiser l'erreur
     
     if (!nom.value || !password.value) {
         error.value = 'Veuillez remplir tous les champs';
         return;
     }
     
+    // Vérification simple des identifiants
+    if (nom.value === 'Admin' && password.value === 'password') {
+        localStorage.setItem('token', 'je_suis_connecter');
+        router.push('/dashboard');
+    } else {
+        error.value = 'Nom ou mot de passe incorrect';
+    }
+}
+
+/*
+// Version avec appel à la base de données PHP (à activer plus tard)
+const handleLogin = async () => {
+    error.value = ''; // On réinitialise l'erreur à chaque tentative
+    
+    if (!nom.value || !password.value) {
+        error.value = 'Veuillez remplir tous les champs';
+        return;
+    }
     try {
         const datausers = {
             nom: nom.value,
@@ -66,7 +88,6 @@ const handleLogin = async () => {
             'http://localhost/Delegg-Hub/SPAvisiteurVuejs/src/Backend/Login.php',
              datausers
         );
-        console.log("Donnees recus :", res.data);
         
         if (res.data.status === "success") {
             localStorage.setItem('token', 'je_suis_connecter');
@@ -79,4 +100,5 @@ const handleLogin = async () => {
         error.value = "Erreur de connexion au serveur";
     }
 };
+*/
 </script>

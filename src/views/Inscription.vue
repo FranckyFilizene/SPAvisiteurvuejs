@@ -20,16 +20,24 @@
                 <div class="bg-white w-full px-2 py-2 rounded-lg shadow-lg">
                     <input 
                     v-model="password"
-                    type="password" 
                     placeholder="Votre Mot de passe" 
+                    :type="showpassword ? 'text' : 'password'"
                     class="w-full focus:outline-none">
                 </div>
                 <div class="bg-white w-full px-2 py-2 rounded-lg shadow-lg">
                     <input 
                     v-model="confirmpassword"
-                    type="password" 
+                    :type="showpassword ? 'text' : 'password'"
                     placeholder="Confirmer votre Mot de passe" 
                     class="w-full focus:outline-none">
+                </div>
+                <div>
+                    <input 
+                    type="checkbox" 
+                    name="check" 
+                    v-model="showpassword"
+                    id="check">
+                    <span>Afficher le mot de passe</span>
                 </div>
                 <div class="flex justify-center items-center w-full flex-col gap-1">
                     <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-900 duration-700 w-full">Inscrire</button>
@@ -44,19 +52,19 @@
 </template>
 
 <script setup>
-import axios from 'axios';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-
+a
 const nom = ref('');
 const email = ref('');
 const password = ref('');
 const confirmpassword = ref('');
 const error = ref('');
+const showpassword = ref(false);
 
 const router = useRouter();
 
-const handleregistre = async()=>{
+const handleregistre = () => {
     if(!nom.value || !password.value || !email.value){
         error.value ='Veuillez remplir tout les champs !!!';
         return;
@@ -66,6 +74,15 @@ const handleregistre = async()=>{
         error.value='Veuillez verifier votre mots de passe';
         return;
     }
+    
+    // Inscription simple - juste afficher un message de succès
+    error.value = ''; // Réinitialiser l'erreur
+    alert('Inscription réussie !!!');
+    router.push('/login');
+}
+
+/*
+    // Version avec appel PHP (à activer plus tard)
     try{
         const dataUsers = {
            nom :nom.value,
@@ -85,5 +102,5 @@ const handleregistre = async()=>{
     }catch(err){
         console.log('error lors de l\'inscription', err);
     }
-}
+    */
 </script>
