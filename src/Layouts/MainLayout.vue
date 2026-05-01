@@ -8,7 +8,7 @@
           <div
             class="h-15 w-15 rounded-full text-slate-50 flex justify-center items-center bg-slate-800"
           >
-            <v-icon name="fa-users" />
+            <v-icon name="fa-users" class="scale-[3]" />
           </div>
           <div>
             <h1 class="text-2xl text-slate-800 font-bold">SPAvisiteur</h1>
@@ -43,6 +43,7 @@
           v-for="section in sectionrouters"
           :key="section.path"
           :to="section.path"
+          @click = "isOpen = false"
           class="flex gap-2 items-center transition-all border-b-4 border-slate-600 active:scale-[0.9] bg-slate-100 rounded-[10px] shadow-2xs shadow-slate-50/10 p-3"
         >
           <v-icon :name="section.icon" scale="1.2" class="text-slate-700" />
