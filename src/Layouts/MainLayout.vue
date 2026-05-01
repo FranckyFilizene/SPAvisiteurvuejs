@@ -8,7 +8,7 @@
           <div
             class="h-15 w-15 rounded-full text-slate-50 flex justify-center items-center bg-slate-800"
           >
-            <v-icon name="fa-users" />
+            <v-icon name="fa-users" class="scale-[3]" />
           </div>
           <div>
             <h1 class="text-2xl text-slate-800 font-bold">SPAvisiteur</h1>
