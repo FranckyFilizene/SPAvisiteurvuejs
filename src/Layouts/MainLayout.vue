@@ -8,7 +8,7 @@
           <div
             class="h-15 w-15 rounded-full text-slate-50 flex justify-center items-center bg-slate-800"
           >
-            <v-icon name="fa-users" />
+            <v-icon name="fa-users" class="scale-[3]" />
           </div>
           <div>
             <h1 class="text-2xl text-slate-800 font-bold">SPAvisiteur</h1>
@@ -30,7 +30,7 @@
 
     <aside
       :class="[
-        'flex fixed top-[14vh] w-full left-0 h-dvh gap-5 md:w-65 text-slate-800 bg-slate-800 shadow-2xl shadow-slate-800 flex-col transition-transform duration-300',
+        'flex fixed top-[14vh] z-10 w-full left-0 h-dvh gap-5 md:w-65 text-slate-800 bg-slate-800 shadow-2xl shadow-slate-800 flex-col transition-transform duration-300',
         isOpen ? 'translate-x-0' : '-translate-x-full',
       ]"
     >
