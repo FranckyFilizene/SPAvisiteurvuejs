@@ -1,24 +1,37 @@
 <template>
-  <div class="flex flex-col gap-2 text-slate-800 w-full min-h-screen p-2">
-    <div class="w-full p-3 border-b-2 border-slate-800 flex justify-between">
-      <h1 class="text-4xl">List des visiteurs</h1>
-      <div class="flex gap-2 items-center">
-        <label for="combobox" class="font-bold">filtrer par :</label>
+  <div class="flex relative flex-col gap-2 text-slate-800 w-full min-h-screen p-2">
+    <div class="w-full sticky top-0 p-3 gap-3 flex-wrap flex items-center justify-evenly">
+      <h1 class="text-4xl font-bold">List des visiteurs</h1>
+      <div class="flex items-center max-w-100 w-full gap-2">
+        <input
+          type="text"
+          class="border-3 w-full p-2 border-slate-800 rounded-lg"
+          placeholder="Rechercher par nom"
+        />
+      </div>
+      <div class="flex gap-2 max-w-80 w-full items-center">
         <select
           id="combobox"
-          class="bg-slate-800 p-4 rounded-lg text-slate-50 cursor-pointer"
+          class="bg-slate-800 capitalize flex-1 border-3 outline-none p-4 rounded-lg text-slate-50 cursor-pointer"
         >
-          <option value="all">tout</option>
-          <option value="days">dernier jour</option>
-          <option value="weeks">dernier semaine</option>
-          <option value="months">dernier mois</option>
+          <option class="text-[13px] " v-for="date in DateOption" :value="date" :key="date">
+            {{ date }}
+          </option>
         </select>
       </div>
     </div>
-    <div class="flex-1 overflow-y-scroll">
-      <div class="w-full h-screen bg-amber-300"></div>
+    <div class="h- overflow-auto bg-image:">
+      <div class="w-full h-screen"></div>
     </div>
   </div>
 </template>
 
-<script></script>
+<script>
+export default {
+  data() {
+    return {
+      DateOption: ['tout', 'dernier jour', 'dernière semaine', 'dernier mois']
+    }
+  }
+}
+</script>

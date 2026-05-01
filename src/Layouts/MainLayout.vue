@@ -8,7 +8,7 @@
           <div
             class="h-15 w-15 rounded-full text-slate-50 flex justify-center items-center bg-slate-800"
           >
-            <v-icon name="fa-users" />
+            <v-icon name="fa-users" class="scale-[3]" />
           </div>
           <div>
             <h1 class="text-2xl text-slate-800 font-bold">SPAvisiteur</h1>
@@ -30,7 +30,7 @@
 
     <aside
       :class="[
-        'flex fixed top-[14vh] w-full left-0 h-dvh gap-5 md:w-65 text-slate-800 bg-slate-800 shadow-2xl shadow-slate-800 flex-col transition-transform duration-300',
+        'flex fixed top-[14vh] w-full left-0 h-[86dvh] z-10 gap-5 md:w-65 text-slate-800 bg-slate-800 shadow-2xl shadow-slate-800 flex-col transition-transform duration-300',
         isOpen ? 'translate-x-0' : '-translate-x-full',
       ]"
     >
@@ -51,19 +51,15 @@
       </div>
       <div class="flex text-slate-50 justify-center p-5 gap-5 h-50 flex-col">
         <button
+          @click="handlelogout"
           class="bg-blue-400 rounded-[10px] transition-all shadow-2xs shadow-slate-50/10 p-3 cursor-pointer border-b-4 border-slate-600"
         >
           se deconnecter
-          <v-icon
-            name="fa-sign-out-alt"
-            scale="1.2"
-            class="scale-x-[-1]"
-            @click="handlelogout"
-          />
+          <v-icon name="fa-sign-out-alt" scale="1.2" class="scale-x-[-1]" />
         </button>
       </div>
     </aside>
-    <main class="content xl:ml-65 overflow-auto ml-0 mt-[14vh] w-full">
+    <main class=" z-1 content xl:ml-65 overflow-auto ml-0 mt-[14vh] w-full">
       <div>
         <router-view />
       </div>
