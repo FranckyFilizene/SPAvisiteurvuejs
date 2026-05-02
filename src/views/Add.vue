@@ -1,7 +1,7 @@
 <template>
     <div class="flex justify-center items-center h-full w-full flex-col gap-2">
         <div class="flex flex-col shadow-lg gap-1 w-[90%] rounded-lg">
-            <div class="text-2xl font-bold text-amber-50 bg-blue-900 p-5 rounded-t-lg">
+            <div class="text-2xl font-bold text-amber-50 bg-slate-800 p-5 rounded-t-lg">
                 <h1>Ajouter un visiteur</h1>
             </div>
             <div class="flex flex-col w-full gap-2 p-3">

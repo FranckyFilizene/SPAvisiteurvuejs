@@ -1,36 +1,26 @@
 <template>
-    <div class="flex justify-start items-center flex-col w-full h-full p-5">
-        <div class="w-full shadow-lg flex flex-col gap-3">
-            <div class="bg-blue-900 w-full h-16 flex justify-start items-center rounded-t-2xl p-5">
-                <h1 class="text-white font-bold text-2xl">List des visiteur</h1>
-            </div>
-            <table class ='w-full text-left border-collapse'>
-                <thead>
-                    <tr class ='bg-slate-300 text-slate-700 uppercase text-sm leading-normal'>
-                        <th className='py-3 px-6 border-b border-gray-400'>Nom</th>
-                        <th className='py-3 px-6 border-b border-gray-400'>Numero</th>
-                        <th className='py-3 px-6 border-b border-gray-400'>Nombre du jour</th>
-                        <th className='py-3 px-6 border-b border-gray-400'>Tarif journalier</th>
-                        <th className='py-3 px-6 border-b border-gray-400'>Action</th>
-                    </tr>
-                </thead>
-                <tbody className='text-slate-700 text-sm font-light'>
-                    <tr className='border-b border-gray-300 hover:bg-slate-100 transition-colors'>
-                        <td className='py-3 px-6 flex items-center gap-2'>Francky</td>
-                        <td className='py-3 px-6'>0385382860</td>
-                        <td className='py-3 px-6'>25 jour(s)</td>
-                        <td className='py-3 px-6'>10000 Ar</td>
-                        <td class="flex py-3 px-6 justify-start items-center gap-2">
-                            <button>Delete</button>
-                            <button>Edit</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+  <div class="flex flex-col gap-2 text-slate-800 w-full min-h-screen p-2">
+    <div class="w-full p-3 gap-3 flex-wrap flex items-center justify-evenly">
+      <h1 class="text-4xl font-bold">List des visiteurs </h1>
+      <div class="flex items-center max-w-100 w-full gap-2 ">
+        <input type="text" class="border-3 w-full p-2 border-slate-800 rounded-lg" placeholder="rechercher par nom">
+      </div>
+      <div class="flex gap-2 max-w-80 w-full items-center">
+        <select
+          id="combobox"
+          class="bg-slate-800 flex-1  border-3  outline-none p-4 rounded-lg text-slate-50 cursor-pointer"
+        >
+          <option value="all">tout</option>
+          <option value="days">dernier jour</option>
+          <option value="weeks">dernier semaine</option>
+          <option value="months">dernier mois</option>
+        </select>
+      </div>
     </div>
+    <div class="h-full overflow-auto">
+      <div class="w-full h-screen"></div>
+    </div>
+  </div>
 </template>
 
-<script>
-
-</script>
+<script></script>
