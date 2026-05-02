@@ -1,17 +1,22 @@
 <?php
-$host = 'localhost';
-$user = 'root';
-$pass = '';
-$dbname = 'spavisiteurvuejs';
+$host = 'gateway01.eu-central-1.prod.aws.tidbcloud.com';
+$port = 4000;
+$user = 'yWqsMAJrP1o6qYL.root'; 
+$password = '9V8B0sdDWkCOH6Ln'; 
+$dbname = 'test';
 
+// 1. Initialisation de l'objet de connexion
+$conn = mysqli_init();
 
-$conn = new mysqli($host, $user, $pass, $dbname);
+// 2. Configuration du SSL (Indispensable pour TiDB Cloud)
+// On passe NULL car les certificats publics de TiDB sont reconnus automatiquement
+mysqli_ssl_set($conn, NULL, NULL, NULL, NULL, NULL);
 
-
-if ($conn->connect_error) {
-  
-    die(json_encode(["status" => "error", "message" => "Échec de la connexion à la base de données"]));
+// 3. Établissement de la connexion sécurisée
+if (!mysqli_real_connect($conn, $host, $user, $password, $dbname, $port, NULL, MYSQLI_CLIENT_SSL)) {
+    die("Erreur de connexion : " . mysqli_connect_error());
 }
 
-$conn->set_charset("utf8mb4");
+// 4. Encodage pour éviter les problèmes d'accents
+mysqli_set_charset($conn, "utf8mb4");
 ?>

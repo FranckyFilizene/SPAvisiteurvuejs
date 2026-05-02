@@ -8,7 +8,7 @@
                 <form action="" @submit.prevent="handlAdd">
                     <div class="flex justify-between items-center gap-1 p-2">
                         <div class="flex flex-col justify-start items-start gap-2">
-                            <div class="text-gray-600">
+                            <div class="text-gray-400">
                                 <label for="name">Nom du visiteur</label>
                             </div>
                             <div
@@ -99,7 +99,7 @@ const handlAdd = async () => {
             Tarif: tarifjournalier.value
         }
         const res = await axios.post(
-            'http://localhost/Delegg-Hub/SPAvisiteurVuejs/src/Backend/Add_liste_visiteurs.php',
+            'http://localhost/Delegg-Hub/SPAvisiteurVuejs/Backend/Add_liste_visiteurs.php',
              datavisiteur
         );
         if (res.data.status === 'success') {

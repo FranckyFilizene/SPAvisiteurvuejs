@@ -112,7 +112,7 @@ const handleregistre = () => {
         };
 
 
-        const res = await axios.post('http://localhost/Delegg-Hub/SPAvisiteurVuejs/src/Backend/Inscription.php',dataUsers);
+        const res = await axios.post('http://localhost/Delegg-Hub/SPAvisiteurVuejs/Backend/Inscription.php',dataUsers);
 
         if(res.data.status === 'success'){
             alert('Inscription réussie !!!');

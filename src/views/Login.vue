@@ -66,6 +66,7 @@ const showpassword = ref(false); // Gère l'affichage (true/false)
 const password = ref('');
 const nom = ref('');
 const error = ref('');
+
 const handleLogin = () => {
   error.value = ""; // Réinitialiser l'erreur
 
@@ -94,12 +95,12 @@ const handleLogin = async () => {
     }
     try {
         const datausers = {
-            nom: nom.value,
+            username: nom.value,
             password: password.value,
         };
 
         const res = await axios.post(
-            'http://localhost/Delegg-Hub/SPAvisiteurVuejs/src/Backend/Login.php',
+            'http://localhost/Delegg-Hub/SPAvisiteurVuejs/Backend/Login.php',
              datausers
         );
         
