@@ -18,7 +18,8 @@
             {{ date }}
           </option>
         </select>
-      </div>
+      </div>chr
+      
     </div>
     <div class="h- overflow-auto bg-image:">
       <div class="w-full h-screen"></div>
