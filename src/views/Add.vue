@@ -99,7 +99,7 @@ const handlAdd = async () => {
             Tarif: tarifjournalier.value
         }
         const res = await axios.post(
-            'http://localhost/Delegg-Hub/SPAvisiteurVuejs/Backend/Add_liste_visiteurs.php',
+            'http://localhost/Delegg-Hub/SPAvisiteurVuejs/src/Backend/Add_liste_visiteurs.php',
              datavisiteur
         );
         if (res.data.status === 'success') {

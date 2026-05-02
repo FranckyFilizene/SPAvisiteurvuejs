@@ -19,8 +19,7 @@
       <div class="bg-slate-200 rounded-xl shadow-2xl overflow-hidden">
         <div class="bg-slate-800 p-6 flex justify-between items-center">
           <h1 className='text-2xl font-bold text-white'>Liste des Visiteurs</h1>
-          <button
-            className='bg-orange-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors'>
+          <button className='bg-orange-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors'>
             Actualiser
           </button>
         </div>
@@ -37,27 +36,51 @@
               </tr>
             </thead>
             <tbody class="text-slate-700 text-sm font-light">
-              <tr class="border-b border-gray-300 hover:bg-slate-100 transition-colors">
+              <tr v-for="visiteur in visiteurs" :key="visiteur.id" class="border-b border-gray-300 hover:bg-slate-100 transition-colors">
                 <td class="py-3 px-6 flex items-center gap-2">
-                    Francky
+                  {{ visiteur.Nom }}
                 </td>
                 <td class="py-3 px-6">
-                  0385382860
+                  {{ visiteur.Numero }}
                 </td>
-                <td class="py-3 px-6 font-medium">20</td>
-                <td class="py-3 px-6">2000</td>
-                <td class="py-3 px-6 font-bold text-blue-900">40000</td>
+                <td class="py-3 px-6 font-medium">{{ visiteur.Jours }}</td>
+                <td class="py-3 px-6">{{ visiteur.Tarif}}</td>
+                <td class="py-3 px-6 font-bold text-blue-900">{{ visiteur.Total }}</td>
                 <td class="py-3 px-6 flex justify-start items-center gap-10">
-                  <v-icon name="fa-edit" fill="green" scale="1.5" class="hover:scale-[1.2] duration-500"/>
-                  <button>delete</button>
+                  <v-icon name="fa-edit" fill="green" scale="1.5" class="hover:scale-[1.2] duration-500" />
+                  <v-icon name="fa-trash" fill="red" scale="1.5" class="hover:scale-[1.2] duration-500" />
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
+      <div class="h-full overflow-auto">
+        <div class="w-full h-screen"></div>
+      </div>
     </div>
   </div>
 </template>
 
-<script></script>
+<script setup>
+import { ref, onMounted } from "vue";
+import axios from "axios";
+
+const visiteurs = ref([]);
+
+const fetchdata = async () => {
+  try{
+    const res = await axios.get('http://localhost/Delegg-Hub/SPAvisiteurVuejs/src/Backend/Liste_visiteurs.php');
+    visiteurs.value = res.data;
+    console.log("visiteur recupéré avec succée :", visiteurs.value);
+    
+  }catch(err){
+    console.log("error :", err);
+  }
+}
+
+onMounted(()=>{
+  fetchdata();
+})
+
+</script>
