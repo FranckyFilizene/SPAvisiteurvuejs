@@ -43,15 +43,16 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
+/*
 import axios from 'axios';
 
-const nom = ref('');
-const password = ref('');
-const error = ref('');
+*/
+// Fonction simple de login avec Admin / password
 const router = useRouter();
 const showpassword = ref(false); // Gère l'affichage (true/false)
-
-// Fonction simple de login avec Admin / password
+const password = ref('');
+const nom = ref('');
+const error = ref('');
 const handleLogin = () => {
     error.value = ''; // Réinitialiser l'erreur
     

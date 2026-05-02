@@ -19,7 +19,7 @@
                <button @click="handlelogout" class="cursor-pointer">Logout</button>
            </div>
         </nav>
-        <main class="content bg-slate-100 px-3 py-2">
+        <main class="content bg-slate-300 px-3 py-2">
             <router-view/>
         </main>
     </div>
