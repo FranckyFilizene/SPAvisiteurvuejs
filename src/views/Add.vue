@@ -6,37 +6,37 @@
             </div>
             <div class="flex flex-col w-full gap-2 p-3">
                 <form action="" @submit.prevent="handlAdd">
-                    <div class="flex justify-between items-center gap-1 p-2">
+                    <div class="flex justify-evenly w-full  flex-wrap items-center gap-5 p-2">
                         <div class="flex flex-col justify-start items-start gap-2">
-                            <div class="text-gray-800">
+                            <div class="text-slate-800">
                                 <label for="name">Nom du visiteur</label>
                             </div>
                             <div
-                                class="bg-white w-96 h-12 flex justify-start items-center px-2 gap-2 rounded-lg border border-gray-500">
+                                class="bg-white w-full max-w-100 h-12 flex justify-start items-center px-2 gap-2 rounded-lg border border-gray-500">
                                 <v-icon name="fa-user" />
                                 <input type="text" v-model="nom" placeholder="Entrez votre nom"
                                     class="w-full focus:outline-none placeholder:text-gray-300">
                             </div>
                         </div>
-                        <div class="flex flex-col justify-start items-start gap-2">
+                        <div class="flex flex-col gap-2">
                             <div class="text-gray-800">
                                 <label for="number">Numero du visiteur</label>
                             </div>
                             <div
-                                class="bg-white w-96 h-12 border border-gray-500 flex justify-start items-center px-2 gap-2 rounded-lg">
+                                class="bg-white w-full max-w-100 h-12 border border-gray-500 flex justify-start items-center px-2 gap-2 rounded-lg">
                                 <v-icon name="fa-phone-alt" />
                                 <input type="text" v-model="numero" placeholder="Entrer votre numero"
                                     class="w-full focus:outline-none placeholder:text-gray-300">
                             </div>
                         </div>
                     </div>
-                    <div class="flex justify-between items-center gap-1 p-2">
+                    <div class="flex flex-wrap justify-evenly items-center gap-1 p-2">
                         <div class="flex flex-col justify-start items-start gap-2">
                             <div class="text-gray-800">
                                 <label for="Jours">Nombre du Jour</label>
                             </div>
                             <div
-                                class="bg-white w-96 h-12 border border-gray-500 flex justify-start items-center px-2 gap-2 rounded-lg">
+                                class="bg-white w-full max-w-100  h-12 border border-gray-500 flex justify-start items-center px-2 gap-2 rounded-lg">
                                 <v-icon name="fa-calendar-day" />
                                 <input type="number" v-model="nbrjours" placeholder="Nombre du jour"
                                     class="w-full focus:outline-none placeholder:text-gray-300">
@@ -47,7 +47,7 @@
                                 <label for="Tarif">Tarif journalier</label>
                             </div>
                             <div
-                                class="bg-white w-96 h-12 border border-gray-500 flex justify-start items-center px-2 gap-2 rounded-lg">
+                                class="bg-white w-full max-w-100 h-12 border border-gray-500 flex justify-start items-center px-2 gap-2 rounded-lg">
                                 <v-icon name="fa-dollar-sign" />
                                 <input type="number" v-model="tarifjournalier" placeholder="Tarif journalier"
                                     class="w-full focus:outline-none placeholder:text-gray-300">
