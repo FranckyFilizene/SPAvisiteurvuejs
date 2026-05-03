@@ -1,67 +1,70 @@
 <template>
     <div class="flex justify-center items-center h-full w-full flex-col gap-2">
         <div class="flex flex-col shadow-lg gap-1 w-[90%] rounded-lg">
-            <div class="text-2xl font-bold text-amber-50 bg-slate-800 p-5 rounded-t-lg">
+            <div class="text-2xl font-bold text-amber-50 bg-slate-800 p-5">
                 <h1>Ajouter un visiteur</h1>
             </div>
             <div class="flex flex-col w-full gap-2 p-3">
                 <form action="" @submit.prevent="handlAdd">
                     <div class="flex justify-between items-center gap-1 p-2">
                         <div class="flex flex-col justify-start items-start gap-2">
-                            <div class="text-gray-400">
+                            <div class="text-gray-800">
                                 <label for="name">Nom du visiteur</label>
                             </div>
                             <div
                                 class="bg-white w-96 h-12 flex justify-start items-center px-2 gap-2 rounded-lg border border-gray-500">
-                                <span
-                                    class="bg-gray-300 w-7 h-7 rounded-3xl text-amber-50 flex justify-center items-center">N</span>
+                                <v-icon name="fa-user" />
                                 <input type="text" v-model="nom" placeholder="Entrez votre nom"
-                                    class="w-full focus:outline-none">
+                                    class="w-full focus:outline-none placeholder:text-gray-300">
                             </div>
                         </div>
                         <div class="flex flex-col justify-start items-start gap-2">
-                            <div class="text-gray-600">
+                            <div class="text-gray-800">
                                 <label for="number">Numero du visiteur</label>
                             </div>
                             <div
                                 class="bg-white w-96 h-12 border border-gray-500 flex justify-start items-center px-2 gap-2 rounded-lg">
-                                <span
-                                    class="bg-gray-300 w-7 h-7 rounded-3xl text-amber-50 flex justify-center items-center">N</span>
+                                <v-icon name="fa-phone-alt" />
                                 <input type="text" v-model="numero" placeholder="Entrer votre numero"
-                                    class="w-full focus:outline-none">
+                                    class="w-full focus:outline-none placeholder:text-gray-300">
                             </div>
                         </div>
                     </div>
                     <div class="flex justify-between items-center gap-1 p-2">
                         <div class="flex flex-col justify-start items-start gap-2">
-                            <div class="text-gray-500">
+                            <div class="text-gray-800">
                                 <label for="Jours">Nombre du Jour</label>
                             </div>
                             <div
                                 class="bg-white w-96 h-12 border border-gray-500 flex justify-start items-center px-2 gap-2 rounded-lg">
-                                <span
-                                    class="bg-gray-300 w-7 h-7 rounded-3xl text-amber-50 flex justify-center items-center">N</span>
+                                <v-icon name="fa-calendar-day" />
                                 <input type="number" v-model="nbrjours" placeholder="Nombre du jour"
-                                    class="w-full focus:outline-none">
+                                    class="w-full focus:outline-none placeholder:text-gray-300">
                             </div>
                         </div>
                         <div class="flex flex-col justify-start items-start gap-2">
-                            <div class="text-gray-500">
+                            <div class="text-gray-800">
                                 <label for="Tarif">Tarif journalier</label>
                             </div>
-                            <div class="bg-white w-96 h-12 border border-gray-500 flex justify-start items-center px-2 gap-2 rounded-lg">
-                                <span
-                                    class="bg-gray-300 w-7 h-7 rounded-3xl text-amber-50 flex justify-center items-center">N</span>
+                            <div
+                                class="bg-white w-96 h-12 border border-gray-500 flex justify-start items-center px-2 gap-2 rounded-lg">
+                                <v-icon name="fa-dollar-sign" />
                                 <input type="number" v-model="tarifjournalier" placeholder="Tarif journalier"
-                                    class="w-full focus:outline-none">
+                                    class="w-full focus:outline-none placeholder:text-gray-300">
                             </div>
                         </div>
                     </div>
                     <div class="flex justify-center items-center mt-16 gap-10">
                         <button type="submit"
-                            class="bg-green-700 text-white px-3 py-2 rounded-lg font-semibold cursor-pointer hover:bg-green-500 duration-500">Enregistrer</button>
+                            class="bg-orange-600 text-white px-3 py-3 rounded-lg font-semibold cursor-pointer hover:bg-orange-500 duration-500"
+                            ><v-icon name="fa-regular-save"/>
+                            Enregistrer
+                        </button>
                         <button type="button" @click="handlevider"
-                            class="bg-blue-800 text-white px-8 py-2 font-semibold rounded-lg cursor-pointer hover:bg-blue-500 duration-500">Vider</button>
+                            class="bg-slate-950 text-white px-8 py-3 font-semibold rounded-lg cursor-pointer hover:bg-slate-800 duration-500"
+                            ><v-icon name="fa-regular-sticky-note"/>
+                            Vider
+                        </button>
                     </div>
                 </form>
             </div>
@@ -93,21 +96,21 @@ const handlAdd = async () => {
     }
     try {
         const datavisiteur = {
-            Nom : nom.value,
+            Nom: nom.value,
             Numero: numero.value,
             Jours: nbrjours.value,
             Tarif: tarifjournalier.value
         }
         const res = await axios.post(
             'http://localhost/Delegg-Hub/SPAvisiteurVuejs/src/Backend/Add_liste_visiteurs.php',
-             datavisiteur
+            datavisiteur
         );
         if (res.data.status === 'success') {
             success.value = res.data.message;
-            nom.value='';
-            numero.value='';
-            nbrjours.value='';
-            tarifjournalier.value='';
+            nom.value = '';
+            numero.value = '';
+            nbrjours.value = '';
+            tarifjournalier.value = '';
         } else {
             error.value = res.data.message;
         }
