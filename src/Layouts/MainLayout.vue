@@ -42,10 +42,9 @@
           v-for="section in sectionrouters"
           :key="section.path"
           :to="section.path"
-          @click = "isOpen = false"
           class="flex gap-2 items-center transition-all border-b-4 border-slate-600 active:scale-[0.9] bg-slate-100 rounded-[10px] shadow-2xs shadow-slate-50/10 p-3"
         >
-          <v-icon :name="section.icon" scale="1.2" class="text-slate-700" />
+          <v-icon :name="section.icon" scale="1.2" class="text-slate-700"  />
           <span>{{ section.label }}</span>
         </router-link>
       </div>
@@ -100,7 +99,7 @@ export default {
 };
 </script>
 <style scoped>
-main::-webkit-scrollbar {
-  width: 0;
-}
+    main::-webkit-scrollbar {
+      width: 0;
+    }
 </style>
