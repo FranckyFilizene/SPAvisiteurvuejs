@@ -1,9 +1,9 @@
 <template>
   <div class="flex flex-col gap-2 text-slate-800 w-full min-h-screen px-3">
     <div class="h-full overflow-auto">
-      <div class="w-full h-screen pt-22.5">
+      <div class="w-full h-screen ">
         <div
-          class="w-[80%] p-2 gap-3 fixed top-[5.8rem] z-1 bg-slate-800 border-b-2 border-slate-800 flex items-center justify-center">
+          class="w-full p-2 gap-3 sticky  top-0 z-1 bg-slate-800 border-b-2 border-slate-800 flex items-center justify-center">
           <img src="/public/listLogo.png" class="max-w-30 w-full h-full max-h-30" alt="" />
           <div class="flex items-center max-w-100 w-full gap-2">
             <input type="text" class="border-3 outline-none w-full p-2 bg-slate-50 border-slate-800 rounded-lg"
@@ -257,3 +257,6 @@ onMounted(() => {
   fetchdata();
 })
 </script>
+<style scoped>
+
+</style>

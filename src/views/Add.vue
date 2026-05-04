@@ -10,7 +10,6 @@
                     Ajouter un nouveau visiteur
                 </h1>
             </div>
-
             <!-- Formulaire -->
             <div class="p-6 md:p-10">
                 <form @submit.prevent="handlAdd" class="space-y-8">
