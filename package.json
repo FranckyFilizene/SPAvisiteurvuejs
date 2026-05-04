@@ -9,7 +9,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@heroicons/vue": "^2.2.0",
     "@tailwindcss/vite": "^4.2.4",
     "axios": "^1.15.2",
     "oh-vue-icons": "^1.0.0-rc3",
