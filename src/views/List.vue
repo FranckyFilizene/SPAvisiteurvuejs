@@ -75,45 +75,91 @@
             </div>
           </div>
         </div>
-        <!-- Modale Edit corrigée -->
-        <div v-if="isEditModalOpen" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div class="bg-slate-400 p-6 rounded-lg w-96 text-white">
-            <h2 class="text-2xl font-bold mb-4 text-slate-900">Modifier le visiteur</h2>
-            <div>
-              <label for="nom">Nom du visiteur</label>
-              <input v-model="formEdit.Nom"
-                class="w-full border border-slate-900 rounded-lg bg-slate-600 p-2 mb-2 focus:outline-none focus-within:2 focus-within:border-slate-900"
-                placeholder="Nom" />
-            </div>
-            <div>
-              <label for="number">Numero du visiteur</label>
-              <input v-model="formEdit.Numero"
-                class="w-full border border-slate-900 rounded-lg bg-slate-600 p-2 mb-2 focus:outline-none focus-within:2 focus-within:border-slate-900"
-                placeholder="Numéro" />
-            </div>
-            <div>
-              <label for="jours">Nombre du jour</label>
-              <input v-model.number="formEdit.Jours" type="number"
-                class="w-full border border-slate-900 rounded-lg bg-slate-600 p-2 mb-2 focus:outline-none focus-within:2 focus-within:border-slate-900" " />
-           </div>
-            <div>
-              <label for=" number">Tarif journalier (Ar)</label>
-              <input v-model.number="formEdit.Tarif" type="number"
-                class="w-full border border-slate-900 rounded-lg bg-slate-600 p-2 mb-2 focus:outline-none focus-within:2 focus-within:border-slate-900" />
-            </div>
+          <!-- Overlay avec flou d'arrière-plan -->
+          <transition name="modal-fade">
+            <div v-if="isEditModalOpen"
+              class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+              @click.self="isEditModalOpen = false">
+              <!-- Conteneur du Modal -->
+              <div class="bg-slate-50 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden border border-white">
 
-            <div class="flex justify-end gap-2">
-              <button @click="isEditModalOpen = false"
-                class="bg-red-600 px-4 py-2 rounded hover:bg-red-400 duration-300">Annuler</button>
-              <button @click="handleUpdate"
-                class="bg-slate-900 text-white px-4 py-2 rounded hover:bg-slate-700 duration-300">Sauvegarder</button>
+                <!-- Header -->
+                <div class="bg-slate-900 p-4 flex justify-between items-center">
+                  <h2 class="text-xl font-bold text-white">Modifier le visiteur</h2>
+                  <button @click="isEditModalOpen = false" class="text-slate-400 hover:text-white transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+
+                <!-- Corps du formulaire -->
+                <div class="p-6 space-y-5">
+
+                  <!-- Nom -->
+                  <div class="space-y-1">
+                    <label class="text-sm font-semibold text-slate-700 ml-1">Nom du visiteur</label>
+                    <input v-model="formEdit.Nom" type="text"
+                      class="w-full bg-white border border-slate-300 rounded-xl p-3 text-slate-900 outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all shadow-sm"
+                      placeholder="Ex: Jean Dupont" />
+                  </div>
+
+                  <!-- Numéro -->
+                  <div class="space-y-1">
+                    <label class="text-sm font-semibold text-slate-700 ml-1">Numéro de téléphone</label>
+                    <input v-model="formEdit.Numero" type="text"
+                      class="w-full bg-white border border-slate-300 rounded-xl p-3 text-slate-900 outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all shadow-sm"
+                      placeholder="034 XX XXX XX" />
+                  </div>
+
+                  <!-- Grille Jours/Tarif (Responsive: 1 col sur mobile, 2 sur tablette+) -->
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                      <label class="text-sm font-semibold text-slate-700 ml-1">Nombre de jours</label>
+                      <input v-model.number="formEdit.Jours" type="number"
+                        class="w-full bg-white border border-slate-300 rounded-xl p-3 text-slate-900 outline-none focus:ring-2 focus:ring-orange-500 transition-all shadow-sm" />
+                    </div>
+                    <div class="space-y-1">
+                      <label class="text-sm font-semibold text-slate-700 ml-1">Tarif Journalier (Ar)</label>
+                      <input v-model.number="formEdit.Tarif" type="number"
+                        class="w-full bg-white border border-slate-300 rounded-xl p-3 text-slate-900 outline-none focus:ring-2 focus:ring-orange-500 transition-all shadow-sm" />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Footer / Actions -->
+                <div class="p-6 bg-slate-100 flex flex-col sm:flex-row gap-3">
+                  <button @click="isEditModalOpen = false"
+                    class="w-full sm:w-1/2 px-4 py-3 text-slate-700 font-bold hover:bg-slate-200 rounded-xl transition-colors order-2 sm:order-1">
+                    Annuler
+                  </button>
+                  <button @click="handleUpdate"
+                    class="w-full sm:w-1/2 px-4 py-3 bg-orange-600 text-white font-bold rounded-xl shadow-lg shadow-orange-200 hover:bg-orange-500 hover:-translate-y-0.5 active:translate-y-0 transition-all order-1 sm:order-2">
+                    Sauvegarder
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          </transition>
+
       </div>
     </div>
   </div>
 </template>
+<style scoped>
+/* Animation d'entrée/sortie */
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+  transition: all 0.3s ease;
+}
+
+.modal-fade-enter-from,
+.modal-fade-leave-to {
+  opacity: 0;
+  transform: scale(0.95);
+}
+</style>
 
 <script setup>
 import { ref, onMounted, computed } from "vue";
