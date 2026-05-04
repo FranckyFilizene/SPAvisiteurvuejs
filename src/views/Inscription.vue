@@ -1,76 +1,110 @@
 <template>
-  <div class="flex justify-center items-center h-screen w-full">
-    <div
-      class="bg-slate-200 p-6 rounded-lg w-[30%] flex justify-center items-center flex-col gap-7 shadow-lg"
-    >
-      <h1 class="text-3xl font-bold text-blue-950">Inscription</h1>
-      <form
-        action=""
-        @submit.prevent="handleregistre"
-        class="w-full h-full flex flex-col gap-5"
-      >
-        <div class="bg-white w-full px-2 py-2 rounded-lg shadow-lg">
-          <input
-            type="text"
-            v-model="nom"
-            placeholder="Votre Nom"
-            class="w-full focus:outline-none"
-          />
-        </div>
-        <div class="bg-white w-full px-2 py-2 rounded-lg shadow-lg">
-          <input
-            v-model="email"
-            type="email"
-            placeholder="Votre Email"
-            class="w-full focus:outline-none"
-          />
-        </div>
-        <div class="bg-white w-full px-2 py-2 rounded-lg shadow-lg">
-          <input
-            v-model="password"
-            placeholder="Votre Mot de passe"
-            :type="showpassword ? 'text' : 'password'"
-            class="w-full focus:outline-none"
-          />
-        </div>
-        <div class="bg-white w-full px-2 py-2 rounded-lg shadow-lg">
-          <input
-            v-model="confirmpassword"
-            :type="showpassword ? 'text' : 'password'"
-            placeholder="Confirmer votre Mot de passe"
-            class="w-full focus:outline-none"
-          />
-        </div>
-        <div>
-          <input
-            type="checkbox"
-            name="check"
-            v-model="showpassword"
-            id="check"
-          />
-          <span>Afficher le mot de passe</span>
-        </div>
-        <div class="flex justify-center items-center w-full flex-col gap-1">
-          <button
-            type="submit"
-            class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-900 duration-700 w-full"
-          >
-            Inscrire
-          </button>
-          <router-link
-            to="/login"
-            class="text-[13px] text-blue-500 hover:underline"
-            >j'ai deja un compte? se connecter</router-link
-          >
-        </div>
-        <div>
-          <p v-if="error" class="text-red-600">{{ error }}</p>
-        </div>
-      </form>
+  <div class="flex justify-center items-center min-h-screen w-full bg-slate-50 p-4">
+    <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden border border-slate-100">
+      <div class="bg-slate-800 p-8 text-center">
+        <h1 class="text-3xl font-extrabold text-white tracking-tight">Créer un compte</h1>
+        <p class="text-slate-400 mt-2">Rejoignez notre communauté en quelques secondes</p>
+      </div>
+      <div class="p-8">
+        <form @submit.prevent="handleregistre" class="flex flex-col gap-5">
+
+          <!-- Champ Nom -->
+          <div class="flex flex-col gap-1.5">
+            <label class="text-sm font-semibold text-slate-700 ml-1">Nom complet</label>
+            <div
+              class="flex items-center bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-orange-500 focus-within:border-transparent transition-all">
+              <v-icon name="fa-user" class="text-slate-400 mr-3" />
+              <input v-model="nom" type="text" placeholder="Ex: Jean Dupont"
+                class="w-full bg-transparent focus:outline-none text-slate-800 placeholder:text-slate-300" />
+            </div>
+          </div>
+
+          <!-- Champ Email -->
+          <div class="flex flex-col gap-1.5">
+            <label class="text-sm font-semibold text-slate-700 ml-1">Adresse Email</label>
+            <div
+              class="flex items-center bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-orange-500 focus-within:border-transparent transition-all">
+              <v-icon name="md-email" class="text-slate-400 mr-3" />
+              <input v-model="email" type="email" placeholder="exemple@mail.com"
+                class="w-full bg-transparent focus:outline-none text-slate-800 placeholder:text-slate-300" />
+            </div>
+          </div>
+
+          <!-- Grille pour les mots de passe (Responsive: 1 col sur mobile, 2 sur PC) -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Password -->
+            <div class="flex flex-col gap-1.5">
+              <label class="text-sm font-semibold text-slate-700 ml-1">Mot de passe</label>
+              <div
+                class="flex items-center bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-orange-500 transition-all">
+                <input v-model="password" :type="showpassword ? 'text' : 'password'" placeholder="••••••••"
+                  class="w-full bg-transparent focus:outline-none text-slate-800 placeholder:text-slate-300 text-sm" />
+              </div>
+            </div>
+            <!-- Confirm Password -->
+            <div class="flex flex-col gap-1.5">
+              <label class="text-sm font-semibold text-slate-700 ml-1">Confirmation</label>
+              <div
+                class="flex items-center bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-orange-500 transition-all">
+                <input v-model="confirmpassword" :type="showpassword ? 'text' : 'password'" placeholder="••••••••"
+                  class="w-full bg-transparent focus:outline-none text-slate-800 placeholder:text-slate-300 text-sm" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Afficher le mot de passe -->
+          <div class="flex items-center gap-2 px-1">
+            <input type="checkbox" v-model="showpassword" id="check"
+              class="w-4 h-4 rounded border-slate-300 text-orange-600 focus:ring-orange-500" />
+            <label for="check" class="text-sm text-slate-600 cursor-pointer select-none font-medium">
+              Afficher les mots de passe
+            </label>
+          </div>
+
+          <!-- Bouton Inscrire -->
+          <div class="mt-2 flex flex-col gap-4">
+            <button type="submit"
+              class="w-full bg-slate-800 text-white py-3.5 rounded-xl font-bold text-lg hover:bg-slate-900 hover:-translate-y-0.5 active:translate-y-0 transition-all shadow-lg shadow-slate-200">
+              Créer mon compte
+            </button>
+
+            <p class="text-center text-slate-600 text-sm">
+              Déjà un compte ?
+              <router-link to="/login" class="text-orange-600 font-bold hover:underline">
+                Se connecter
+              </router-link>
+            </p>
+          </div>
+
+          <!-- Message d'erreur -->
+          <transition name="slide-up">
+            <div v-if="error" class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-xl flex items-center gap-3">
+              <v-icon name="bi-exclamation-octagon-fill" class="text-red-500" />
+              <p class="text-red-800 text-sm font-medium">{{ error }}</p>
+            </div>
+          </transition>
+
+        </form>
+      </div>
     </div>
   </div>
 </template>
 
+<style scoped>
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: all 0.4s ease;
+}
+
+.slide-up-enter-from {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.slide-up-leave-to {
+  opacity: 0;
+}
+</style>
 <script setup>
 import axios from "axios";
 import { ref } from "vue";
