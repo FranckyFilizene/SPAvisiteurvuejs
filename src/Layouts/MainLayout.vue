@@ -68,12 +68,7 @@
 </template>
 
 <script>
-import usercontrol from "./usercontrol.vue";
-
 export default {
-  components: {
-    usercontrol,
-  },
   data() {
     return {
       isOpen: true,
