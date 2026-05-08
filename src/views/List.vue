@@ -1,40 +1,40 @@
 <template>
-  <div class="flex flex-col gap-2 text-slate-800 w-full min-h-screen px-3">
+  <div class="flex flex-col text-[10px] gap-2 text-slate-800 w-full min-h-screen">
     <div class="h-full overflow-auto">
       <div class="w-full h-screen ">
         <div
-          class="w-full p-2 gap-3 sticky  top-0 z-1 bg-slate-800 border-b-2 border-slate-800 flex items-center  flex-wrap justify-center">
-          <img src="/public/listLogo.png" class="max-w-30 w-full h-full max-h-30" alt="" />
-          <h1 className='text-2xl font-bold text-white'>Liste des Visiteurs</h1>
+          class="w-full p-2 gap-3 z-10 sticky top-0  bg-slate-800 border-b-2 border-slate-800 flex items-center  flex-wrap justify-evenly">
+          <img src="/public/listLogo.png" class="max-w-20 w-full h-full max-h-20" alt="" />
+          <h1 className='text-[15px]  font-bold text-white'>Liste des Visiteurs</h1>
           <div class="flex items-center max-w-100 w-full gap-2">
             <input type="text" class="border-3 outline-none w-full p-2 bg-slate-50 border-slate-800 rounded-lg"
               placeholder="rechercher par nom" v-model="searchQuery" />
           </div>
-          <div class="flex gap-2 text-slate-50  max-w-80 w-full items-center">
+          <div class="flex gap-2 text-slate-50  max-w-50 w-full items-center">
             <label for="combobox">
               filtre par :
             </label>
             <select id="combobox"
-              class="bg-slate-800  capitalize flex-1 border-3 outline-none p-2 rounded-lg cursor-pointer">
+              class="bg-slate-800  capitalize flex-1 border-2 outline-none p-2 rounded-lg cursor-pointer">
               <option class="capitalize text-[12px]" v-for="day in dayslist" :key="day" :value="day">
                 {{ day }}
               </option>
             </select>
           </div>
         </div>
-        <div class="p-8 w-full h-full">
-          <div class="bg-slate-200 rounded-xl shadow-2xl overflow-hidden">
-            <div class="bg-slate-800 p-6 flex justify-between items-center">
+        <div class="p-2 w-full ">
+          <div class="bg-slate-200 rounded shadow-2xl overflow-hidden">
+            <div class="bg-slate-800 p-2 flex justify-between items-center">
 
               <button v-on:click="handleact"
                 className='bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-400 duration-300 transition-colors'>
                 Actualiser
               </button>
             </div>
-            <div className='overflow-x-auto'>
+            <div className='overflow-x-auto h-150'>
               <table className='w-full text-left border-collapse'>
                 <thead>
-                  <tr className='bg-slate-300 text-slate-700 uppercase text-sm leading-normal'>
+                  <tr className='bg-slate-300 sticky top-0 text-[10px] text-slate-700 uppercase text-sm leading-normal'>
                     <th className='py-3 px-6 border-b border-gray-400'>Nom</th>
                     <th className='py-3 px-6 border-b border-gray-400'>Numéro</th>
                     <th className='py-3 px-6 border-b border-gray-400'>Jours</th>
