@@ -21,7 +21,7 @@
             </select>
           </div>
         </div>
-        <div class="p-8 w-full h-full">
+        <div class="p-8 w-full">
           <div class="bg-slate-200 rounded-xl shadow-2xl overflow-hidden">
             <div class="bg-slate-800 p-6 flex justify-between items-center">
               <h1 className='text-2xl font-bold text-white'>Liste des Visiteurs</h1>
