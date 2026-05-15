@@ -1,7 +1,7 @@
 <template>
   <div class="flex h-screen w-full">
     <header
-      class="flex z-30 fixed top-0 justify-around xl:justify-between p-2 gap-5 items-center w-full h-[14vh]"
+      class="flex z-30 fixed top-0 justify-around xl:justify-between p-2 gap-5 items-center w-full h-[12vh]"
     >
       <div class="flex flex-col text-slate-800">
         <div class="flex items-center gap-3">
@@ -23,13 +23,13 @@
           class="text-slate-800 cursor-pointer"
         />
       </div>
-      <div class="bg-slate-800 hidden xl:flex rounded-2xl w-60">
+      <div class="bg-slate-800 hidden xl:flex rounded-2xl w-40">
         <usercontrol />
       </div>
     </header>
     <aside
       :class="[
-        'flex fixed top-[14vh] z-10 w-full left-0 h-dvh gap-5 md:w-65 text-slate-800 bg-slate-800 shadow-2xl shadow-slate-800 flex-col transition-transform duration-300',
+        'flex fixed text-[10px] top-[12vh] z-10 w-full left-0 h-dvh gap-5 md:w-50 text-slate-800 bg-slate-800 shadow-2xl shadow-slate-800 flex-col transition-transform duration-300',
         isOpen ? 'translate-x-0' : '-translate-x-full',
       ]"
     >
@@ -37,21 +37,21 @@
         <usercontrol />
       </div>
 
-      <div class="flex justify-around p-5 gap-5 h-50 flex-col">
+      <div class="flex justify-around p-5 gap-2 h-50 flex-col">
         <router-link
           v-for="section in sectionrouters"
           :key="section.path"
           :to="section.path"
-          class="flex gap-2 items-center transition-all border-b-4 border-slate-600 active:scale-[0.9] bg-slate-100 rounded-[10px] shadow-2xs shadow-slate-50/10 p-3"
+          class="flex gap-2 items-center transition-all border-b-4 border-slate-600 active:scale-[0.9] bg-slate-100 rounded-[10px] shadow-2xs shadow-slate-50/10 p-2"
         >
-          <v-icon :name="section.icon" scale="1.2" class="text-slate-700" />
+          <v-icon :name="section.icon" scale="1.2" class="text-slate-700"  />
           <span>{{ section.label }}</span>
         </router-link>
       </div>
       <div class="flex text-slate-50 justify-center p-5 gap-5 h-50 flex-col">
         <button
           @click="handlelogout"
-          class="bg-blue-400 rounded-[10px] transition-all shadow-2xs shadow-slate-50/10 p-3 cursor-pointer border-b-4 border-slate-600"
+          class="bg-blue-400 rounded-[10px] transition-all shadow-2xs shadow-slate-50/10 flex items-center gap-2 p-2 cursor-pointer border-b-4 border-slate-600"
         >
           se deconnecter
           <v-icon
@@ -62,7 +62,7 @@
         </button>
       </div>
     </aside>
-    <main class="content xl:ml-65 overflow-auto ml-0 mt-[14vh] w-full">
+    <main class="content xl:ml-50 overflow-auto ml-0 mt-[12vh] w-full">
       <div>
         <router-view />
       </div>
@@ -99,7 +99,7 @@ export default {
 };
 </script>
 <style scoped>
-main::-webkit-scrollbar {
-  width: 0;
-}
+    main::-webkit-scrollbar {
+      width: 0;
+    }
 </style>
