@@ -76,17 +76,6 @@
                               maximal</span>
                   </div>
             </div>
-
-
-
-
-
-
-            <!-- 
-          </div> -->
-
-
-
       </main>
 </template>
 
