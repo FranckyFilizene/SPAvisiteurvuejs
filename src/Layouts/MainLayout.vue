@@ -44,21 +44,17 @@
           :to="section.path"
           class="flex gap-2 items-center transition-all border-b-4 border-slate-600 active:scale-[0.9] bg-slate-100 rounded-[10px] shadow-2xs shadow-slate-50/10 p-2"
         >
-          <v-icon :name="section.icon" scale="1.2" class="text-slate-700"  />
+          <v-icon :name="section.icon" scale="1.2" class="text-slate-700" />
           <span>{{ section.label }}</span>
         </router-link>
       </div>
       <div class="flex text-slate-50 justify-center p-5 gap-5 h-50 flex-col">
         <button
           @click="handlelogout"
-          class="bg-blue-400 rounded-[10px] transition-all shadow-2xs shadow-slate-50/10 flex items-center gap-2 p-2 cursor-pointer border-b-4 border-slate-600"
+          class="bg-sky-700 rounded-[10px] transition-all shadow-2xs shadow-slate-50/10 flex items-center gap-2 p-2 cursor-pointer border-b-4 border-slate-600"
         >
           se deconnecter
-          <v-icon
-            name="fa-sign-out-alt"
-            scale="1.2"
-            class="scale-x-[-1]"
-          />
+          <v-icon name="fa-sign-out-alt" scale="1.2" class="scale-x-[-1]" />
         </button>
       </div>
     </aside>
@@ -81,6 +77,7 @@ export default {
     return {
       isOpen: true,
       sectionrouters: [
+        { path: "/explorer", label: "Explorer", icon: "fa-wpexplorer" },
         { path: "/dashboard", label: "Dashboard", icon: "fa-chart-bar" },
         { path: "/add", label: "Ajouter", icon: "fa-address-book" },
         { path: "/list", label: "Liste", icon: "fa-th-list" },
@@ -99,7 +96,7 @@ export default {
 };
 </script>
 <style scoped>
-    main::-webkit-scrollbar {
-      width: 0;
-    }
+main::-webkit-scrollbar {
+  width: 0;
+}
 </style>

@@ -9,7 +9,7 @@
       <v-icon name="fa-cog" />
     </div>
     <div
-      class="flex justify-center cursor-pointer rounded-full items-center h-10 w-10 bg-blue-400 border-4 border-slate-50 text-2xl"
+      class="flex justify-center cursor-pointer rounded-full items-center h-10 w-10 bg-sky-700 border-4 border-slate-50 text-2xl"
     >
       <h1>A</h1>
     </div>

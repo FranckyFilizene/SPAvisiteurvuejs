@@ -5,10 +5,11 @@ import router from "./Router/index";
 
 import { OhVueIcon, addIcons } from "oh-vue-icons";
 import { 
-    FaChartBar, FaEdit, FaTrash , FaUsers ,FaAddressBook , FaThList , FaBars ,FaBell , FaSignOutAlt , FaCog ,FaSearch , FaUser, FaCalendarDay, FaDollarSign, FaPhoneAlt, FaRegularSave, FaRegularStickyNote
+    FaChartBar, FaEdit, FaTrash , FaUsers ,FaAddressBook , FaThList , FaBars ,FaBell , FaSignOutAlt , FaCog ,FaSearch , FaUser, FaCalendarDay, FaDollarSign, FaPhoneAlt, FaRegularSave, FaRegularStickyNote,
+    FaWpexplorer
 } from "oh-vue-icons/icons/fa";
 
-addIcons(FaChartBar , FaEdit , FaTrash , FaUsers , FaAddressBook , FaThList , FaBars , FaBell , FaSignOutAlt , FaCog  , FaSearch, FaUser, FaCalendarDay, FaDollarSign, FaPhoneAlt, FaRegularSave, FaRegularStickyNote);
+addIcons(FaChartBar , FaEdit , FaTrash , FaUsers , FaAddressBook , FaThList , FaBars , FaBell , FaSignOutAlt , FaCog  , FaSearch, FaUser, FaCalendarDay, FaDollarSign, FaPhoneAlt, FaRegularSave, FaRegularStickyNote , FaWpexplorer , FaSearch);
 
 const app = createApp(App);
 

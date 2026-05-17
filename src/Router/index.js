@@ -6,6 +6,7 @@ import Dashboard from "../views/Dashboard.vue";
 import List from "../views/List.vue";
 import MainLayout from "../Layouts/MainLayout.vue";
 import Inscription from "../views/Inscription.vue";
+import Explorer from "../views/explorer.vue";
 
 const routes = [
   {
@@ -32,6 +33,10 @@ const routes = [
         path: "list",
         component: List,
       },
+      {
+        path:"explorer" ,
+        component : Explorer ,
+      }
     ],
   },
 ];
