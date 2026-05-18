@@ -3,17 +3,13 @@
     <div class="h-full overflow-auto">
       <div class="w-full h-screen ">
         <div
-          class="w-full p-2 gap-3 z-10 sticky top-0  bg-slate-800 border-b-2 border-slate-800 flex items-center  flex-wrap justify-evenly">
-          <img src="/public/listLogo.png" class="max-w-20 w-full h-full max-h-20" alt="" />
+          class="w-full p-4 gap-3 z-10 sticky top-0  bg-amber-400 rounded-2xl  flex items-center  flex-wrap justify-evenly">
           <h1 className='text-[15px]  font-bold text-white'>Liste des Visiteurs</h1>
           <div class="flex items-center max-w-100 w-full gap-2">
-            <input type="text" class="border-3 outline-none w-full p-2 bg-slate-50 border-slate-800 rounded-lg"
+            <input type="text" class=" outline-none w-full p-2 bg-slate-50 rounded-lg"
               placeholder="rechercher par nom" v-model="searchQuery" />
           </div>
           <div class="flex gap-2 text-slate-50  max-w-50 w-full items-center">
-            <label for="combobox">
-              filtre par :
-            </label>
             <select id="combobox"
               class="bg-slate-800  capitalize flex-1 border-2 outline-none p-2 rounded-lg cursor-pointer">
               <option class="capitalize text-[12px]" v-for="day in dayslist" :key="day" :value="day">
@@ -23,7 +19,7 @@
           </div>
         </div>
         <div class="p-2 w-full ">
-          <div class="bg-slate-200 rounded shadow-2xl overflow-hidden">
+          <div class=" rounded overflow-hidden">
             <div class="bg-slate-800 p-2 flex justify-between items-center">
 
               <button v-on:click="handleact"

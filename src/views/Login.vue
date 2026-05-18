@@ -21,7 +21,12 @@
             class="flex-1 flex justify-center items-center rounded-2xl shadow-2xl max-w-4xl bg-amber-400 p-5 w-[95%] mx-auto"
         >
             <div class="w-[50%] overflow-hidden lg:block hidden">
-                <img src="/login.png" id="img" alt="" />
+                <img
+                    src="/login.png"
+                    class="drop-shadow-slate-800/30 drop-shadow-2xl"
+                    id="img"
+                    alt=""
+                />
             </div>
             <div
                 id="box2"
@@ -105,7 +110,7 @@
                             :class="[
                                 'p-3 rounded-2xl w-full text-white shadow-2xl transition-all duration-300 font-medium',
                                 disable
-                                    ? ' bg-slate-600 cursor-pointer'
+                                    ? 'bg-slate-700 cursor-pointer hover:bg-slate-800'
                                     : 'bg-slate-400 cursor-not-allowed',
                             ]"
                             :disabled="!disable"
@@ -115,7 +120,7 @@
                         <button
                             type="button"
                             @click="$router.push('/inscription')"
-                            class="border-2 p-2 w-full rounded-2xl border-slate-600/30 cursor-pointer duration-300 font-medium"
+                            class="border-2 p-2 w-full rounded-2xl border-slate-600/30 cursor-pointer duration-300 font-medium hover:bg-slate-100"
                         >
                             S'inscrire
                         </button>
@@ -123,6 +128,7 @@
                 </form>
                 <div class="border-t-2 border-slate-500/30 w-full p-2">
                     <p
+                        @click="forgotPassword"
                         class="text-blue-400 text-right cursor-pointer hover:underline"
                     >
                         Mot de passe oublié ?
@@ -136,6 +142,7 @@
 <script>
 import gsap from "gsap";
 import Loading from "../Layouts/loading.vue";
+
 export default {
     data() {
         return {
@@ -153,8 +160,8 @@ export default {
     computed: {
         validationForm() {
             return (
-                this.Nom === "Admin" &&
-                this.Pwd === "password" &&
+                this.Nom.trim().length >= 3 &&
+                this.Pwd.length >= 6 &&
                 !this.ErrorNom &&
                 !this.ErrorPwd
             );
@@ -166,9 +173,11 @@ export default {
             this.disable = val;
         },
     },
+    
     components: {
         Loading,
     },
+    
     mounted() {
         gsap.from("#box", { duration: 1, opacity: 0, y: 50 });
         gsap.from("#img", { duration: 1, x: 500, delay: 0.8 });
@@ -176,6 +185,10 @@ export default {
     },
 
     methods: {
+        forgotPassword() {
+            this.$router.push('/forgot');
+        },
+        
         valideNom() {
             if (!this.Nom) {
                 this.ErrorNom = "Champ obligatoire";
@@ -197,18 +210,19 @@ export default {
         },
 
         Valider() {
-            if (!this.Nom || !this.Pwd) {
-                this.errorMessage = "Veuillez remplir tous les champs.";
+            if (!this.validationForm) {
+                this.errorMessage = "Veuillez vérifier vos informations.";
                 if (!this.Nom) this.ErrorNom = "Champ obligatoire";
                 if (!this.Pwd) this.ErrorPwd = "Champ obligatoire";
                 return;
             }
 
-            localStorage.setItem("token", "authenticated_token_example");
-            this.errorMessage = "";
+     
             this.success = true;
 
             setTimeout(() => {
+          
+                localStorage.setItem("token", "authenticated_token_example");
                 this.$router.push("/dashboard");
             }, 2000);
         },

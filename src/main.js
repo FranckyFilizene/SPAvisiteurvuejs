@@ -4,12 +4,9 @@ import App from "./App.vue";
 import router from "./Router/index";
 
 import { OhVueIcon, addIcons } from "oh-vue-icons";
-import { 
-    FaChartBar, FaEdit, FaTrash , FaUsers ,FaAddressBook , FaThList , FaBars ,FaBell , FaSignOutAlt , FaCog ,FaSearch , FaUser, FaCalendarDay, FaDollarSign, FaPhoneAlt, FaRegularSave, FaRegularStickyNote,
-    FaWpexplorer
-} from "oh-vue-icons/icons/fa";
+import { FaBars, FaGlobe, FaChartLine, FaUserPlus, FaThList, FaSignOutAlt, FaCog, FaBell} from "oh-vue-icons/icons/fa";
 
-addIcons(FaChartBar , FaEdit , FaTrash , FaUsers , FaAddressBook , FaThList , FaBars , FaBell , FaSignOutAlt , FaCog  , FaSearch, FaUser, FaCalendarDay, FaDollarSign, FaPhoneAlt, FaRegularSave, FaRegularStickyNote , FaWpexplorer , FaSearch);
+addIcons(FaChartLine,FaGlobe, FaBars , FaUserPlus ,FaThList , FaSignOutAlt ,FaCog , FaBell);
 
 const app = createApp(App);
 

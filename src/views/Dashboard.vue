@@ -1,5 +1,5 @@
 <template>
-      <main class="  flex-col min-h-screen w-full flex p-5 gap-5">
+      <main class="  flex-col  w-full max-h-screen overflow-auto flex p-5 gap-5">
             <div class="w-full flex justify-between">
                   <div>
                         <div>

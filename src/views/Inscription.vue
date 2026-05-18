@@ -204,7 +204,7 @@
             </div>
 
             <div class="w-[50%] lg:block overflow-hidden hidden">
-                <img src="/register.png" id="img" alt="Illustration" />
+                <img src="/register.png" class="drop-shadow-slate-800/30 drop-shadow-2xl" id="img" alt="Illustration" />
             </div>
         </div>
     </div>
