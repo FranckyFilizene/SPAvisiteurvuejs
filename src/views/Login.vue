@@ -4,17 +4,27 @@
     >
         <div
             :class="[
-                'top-0 w-full h-screen backdrop-blur-[7px]',
-                success ? 'fixed' : 'hidden',
+                'top-0 left-0 w-full h-screen z-50 backdrop-blur-xl bg-black/40',
+                'flex flex-col justify-center items-center gap-4',
+                'transition-opacity duration-500',
+                success ? 'fixed opacity-100' : 'hidden opacity-0',
             ]"
-        ></div>
-        <div
-            class="flex-1 flex justify-center items-center rounded-2xl shadow-2xl max-w-250 bg-amber-400 p-5"
         >
-            <div class="w-[50%] lg:block hidden">
-                <img src="/login.png" alt="" />
+            <div class="w-full h-full flex justify-center items-center">
+                <div class="p-5 rounded-2xl bg-sky-50">
+                    <Loading />
+                </div>
+            </div>
+        </div>
+        <div
+            id="box"
+            class="flex-1 flex justify-center items-center rounded-2xl shadow-2xl max-w-4xl bg-amber-400 p-5 w-[95%] mx-auto"
+        >
+            <div class="w-[50%] overflow-hidden lg:block hidden">
+                <img src="/login.png" id="img" alt="" />
             </div>
             <div
+                id="box2"
                 class="w-full flex flex-col justify-center gap-3 items-center max-w-120 border border-slate-800/20 rounded-2xl shadow-2xl p-6 bg-slate-50"
             >
                 <h1 class="text-center text-4xl text-slate-700 font-bold">
@@ -105,13 +115,13 @@
                         <button
                             type="button"
                             @click="$router.push('/inscription')"
-                            class="border-2 p-3 w-full rounded-2xl border-slate-600/30 cursor-pointer duration-300 font-medium"
+                            class="border-2 p-2 w-full rounded-2xl border-slate-600/30 cursor-pointer duration-300 font-medium"
                         >
                             S'inscrire
                         </button>
                     </div>
                 </form>
-                <div class="border-t-2 border-slate-500/30 w-full p-3">
+                <div class="border-t-2 border-slate-500/30 w-full p-2">
                     <p
                         class="text-blue-400 text-right cursor-pointer hover:underline"
                     >
@@ -124,6 +134,8 @@
 </template>
 
 <script>
+import gsap from "gsap";
+import Loading from "../Layouts/loading.vue";
 export default {
     data() {
         return {
@@ -153,6 +165,14 @@ export default {
         validationForm(val) {
             this.disable = val;
         },
+    },
+    components: {
+        Loading,
+    },
+    mounted() {
+        gsap.from("#box", { duration: 1, opacity: 0, y: 50 });
+        gsap.from("#img", { duration: 1, x: 500, delay: 0.8 });
+        gsap.from("#box2", { duration: 1, y: 50, delay: 0.3 });
     },
 
     methods: {
@@ -190,7 +210,7 @@ export default {
 
             setTimeout(() => {
                 this.$router.push("/dashboard");
-            }, 1000);
+            }, 2000);
         },
     },
 };
