@@ -18,7 +18,7 @@
             </select>
           </div>
         </div>
-        <div class="p-2 w-full ">
+        <div class="p-3 w-full ">
           <div class=" rounded overflow-hidden">
             <div class="bg-slate-800 p-2 flex justify-between items-center">
               <button v-on:click="handleact"
