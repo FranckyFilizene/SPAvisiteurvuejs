@@ -1,105 +1,138 @@
 <template>
-  <div class="flex h-screen w-full">
-    <header
-      class="flex z-30 fixed top-0 justify-around xl:justify-between p-2 gap-5 items-center w-full h-[12vh]"
+    <div
+        class="w-full text-[10px] p-4 items-center flex justify-center text-slate-50 min-h-screen"
+        :style="gridstylebg"
     >
-      <div class="flex flex-col text-slate-800">
-        <div class="flex items-center gap-3">
-          <div
-            class="h-15 w-15 rounded-full text-slate-50 flex justify-center items-center bg-slate-800"
-          >
-            <v-icon name="fa-users" class="scale-[3]" />
-          </div>
-          <div>
-            <h1 class="text-2xl text-slate-800 font-bold">SPAvisiteur</h1>
-            <h2 class="text-[13px]">Gestion des visiteurs</h2>
-          </div>
-        </div>
-      </div>
-      <div @click="toggle" class="xl:hidden flex">
-        <v-icon
-          name="fa-bars"
-          scale="1.5"
-          class="text-slate-800 cursor-pointer"
-        />
-      </div>
-      <div class="bg-slate-800 hidden xl:flex rounded-2xl w-40">
-        <usercontrol />
-      </div>
-    </header>
-    <aside
-      :class="[
-        'flex fixed text-[10px] top-[12vh] z-10 w-full left-0 h-dvh gap-5 md:w-50 text-slate-800 bg-slate-800 shadow-2xl shadow-slate-800 flex-col transition-transform duration-300',
-        isOpen ? 'translate-x-0' : '-translate-x-full',
-      ]"
-    >
-      <div class="bg-slate-800 p-4 flex xl:hidden rounded-2xl w-full">
-        <usercontrol />
-      </div>
+        <div class="flex gap-5 flex-1 max-h-200 h-[95vh]">
+            <div
+                class="bg-amber-400 hidden lg:flex flex-col w-50 justify-between p-5 rounded-xl shadow-2xl"
+            >
+                <Aside />
 
-      <div class="flex justify-around p-5 gap-2 h-50 flex-col">
-        <router-link
-          v-for="section in sectionrouters"
-          :key="section.path"
-          :to="section.path"
-          class="flex gap-2 items-center transition-all border-b-4 border-slate-600 active:scale-[0.9] bg-slate-100 rounded-[10px] shadow-2xs shadow-slate-50/10 p-2"
-        >
-          <v-icon :name="section.icon" scale="1.2" class="text-slate-700"  />
-          <span>{{ section.label }}</span>
-        </router-link>
-      </div>
-      <div class="flex text-slate-50 justify-center p-5 gap-5 h-50 flex-col">
-        <button
-          @click="handlelogout"
-          class="bg-blue-400 rounded-[10px] transition-all shadow-2xs shadow-slate-50/10 flex items-center gap-2 p-2 cursor-pointer border-b-4 border-slate-600"
-        >
-          se deconnecter
-          <v-icon
-            name="fa-sign-out-alt"
-            scale="1.2"
-            class="scale-x-[-1]"
-          />
-        </button>
-      </div>
-    </aside>
-    <main class="content xl:ml-50 overflow-auto ml-0 mt-[12vh] w-full">
-      <div>
-        <router-view />
-      </div>
-    </main>
-  </div>
+                <div class="flex gap-2 flex-col">
+                    <button
+                        class="bg-blue-500/20 border text-slate-800 font-medium border-slate-800 gap-2 cursor-pointer rounded-xl flex items-center justify-center p-3 hover:bg-slate-500/30 transition-colors duration-300"
+                        @click="$router.push('/parametre')"
+                    >
+                        <div class="scale-x-[-1]">
+                            <v-icon name="fa-cog" />
+                        </div>
+                        Parametre
+                    </button>
+                    <button
+                        class="bg-red-500/20 border text-red-600 font-medium border-red-500 gap-2 cursor-pointer rounded-xl flex items-center justify-center p-3 hover:bg-red-500/30 transition-colors duration-300"
+                        @click="lougout"
+                    >
+                        <div class="scale-x-[-1]">
+                            <v-icon name="fa-sign-out-alt" />
+                        </div>
+                        Déconnexion
+                    </button>
+                </div>
+            </div>
+
+            <div
+                v-if="mobileMenuOpen"
+                class="lg:hidden fixed inset-0 z-50 bg-black/50"
+                @click.self="mobileMenuOpen = false"
+            >
+                <div
+                    class="w-[50%] h-full bg-amber-400 p-5 rounded-r-xl shadow-2xl flex flex-col justify-between"
+                >
+                    <div>
+                        <div
+                            class="flex justify-between items-center mb-5"
+                        ></div>
+                        <ul class="flex flex-col gap-2">
+                            <li v-for="(item, index) in menuItems" :key="index">
+                                <router-link
+                                    :to="item.path"
+                                    class="flex items-center gap-3 p-3 rounded-lg hover:bg-amber-600 transition-colors duration-300"
+                                    @click="mobileMenuOpen = false"
+                                >
+                                    <v-icon :name="item.icon" />
+                                    <span>{{ item.label }}</span>
+                                </router-link>
+                            </li>
+                        </ul>
+                    </div>
+                    <button
+                        class="bg-red-500/20 border text-red-600 font-medium border-red-500 gap-2 cursor-pointer rounded-xl flex items-center justify-center p-3 hover:bg-red-500/30 transition-colors"
+                        @click="lougout"
+                    >
+                        <div class="scale-x-[-1]">
+                            <v-icon name="fa-sign-out-alt" />
+                        </div>
+                        Déconnexion
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex flex-1 flex-col gap-5">
+                <div
+                    class="w-full rounded-2xl flex gap-3 items-center p-3 bg-amber-400 shadow-2xl"
+                >
+                    <div class="flex-1">
+                        <h1 class="text-2xl font-bold">
+                            {{ date }}
+                        </h1>
+                    </div>
+                    <div class="p-2 border rounded-full">
+                        <button>
+                            <v-icon name="fa-bell" />
+                        </button>
+                    </div>
+
+                    <button
+                        @click="mobileMenuOpen = !mobileMenuOpen"
+                        class="lg:hidden block bg-amber-400 p-3 rounded-xl shadow-lg"
+                    >
+                        <v-icon name="fa-bars" />
+                    </button>
+                </div>
+                <div
+                    class="w-full bg-amber-400/10 overflow-hidden rounded-xl p-2 shadow-2xl border border-amber-400"
+                >
+                    <div>
+                        <router-view />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
-import usercontrol from "./usercontrol.vue";
+import { FaBullseye, FaHSquare } from "oh-vue-icons/icons/fa";
+
+import { gridstylebg } from "../Router/styledefault";
+import Aside from "./aside.vue";
 
 export default {
-  components: {
-    usercontrol,
-  },
-  data() {
-    return {
-      isOpen: true,
-      sectionrouters: [
-        { path: "/dashboard", label: "Dashboard", icon: "fa-chart-bar" },
-        { path: "/add", label: "Ajouter", icon: "fa-address-book" },
-        { path: "/list", label: "Liste", icon: "fa-th-list" },
-      ],
-    };
-  },
-  methods: {
-    toggle() {
-      this.isOpen = !this.isOpen;
+    data() {
+        return {
+            gridstylebg,
+            mobileMenuOpen: false,
+            menuItems: [
+                {
+                    label: "Dashboard",
+                    path: "/dashboard",
+                    icon: "fa-chart-line",
+                },
+                { label: "Explorer", path: "/explorer", icon: "fa-globe" },
+                { label: "Ajouter", path: "/add", icon: "fa-user-plus" },
+                { label: "Lister", path: "/list", icon: "fa-th-list" },
+            ],
+        };
     },
-    handlelogout() {
-      localStorage.removeItem("token");
-      this.$router.push("/login");
+    components: {
+        Aside,
     },
-  },
+    methods: {
+        lougout() {
+            localStorage.removeItem("token");
+            this.$router.push("/login");
+        },
+    },
 };
 </script>
-<style scoped>
-    main::-webkit-scrollbar {
-      width: 0;
-    }
-</style>

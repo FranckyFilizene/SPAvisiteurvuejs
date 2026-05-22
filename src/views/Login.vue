@@ -1,146 +1,229 @@
 <template>
-  <div class="flex justify-center items-center min-h-screen w-full bg-slate-50 p-4">
-    <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden border border-slate-100">
-      
-      <div class="bg-slate-800 p-8 text-center">
-        <h1 class="text-3xl font-extrabold text-white tracking-tight">Connexion</h1>
-        <p class="text-slate-400 mt-2">Heureux de vous revoir !</p>
-      </div>
-      <div class="p-8">
-        <form @submit.prevent="handleLogin" class="flex flex-col gap-6">
-          
-          <!-- Champ Nom -->
-          <div class="flex flex-col gap-1.5">
-            <label class="text-sm font-semibold text-slate-700 ml-1">Identifiant</label>
-            <div class="flex items-center bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-orange-500 focus-within:border-transparent transition-all">
-              <v-icon name="fa-user" class="text-slate-400 mr-3" />
-              <input
-                v-model="nom"
-                type="text"
-                placeholder="Votre nom"
-                class="w-full bg-transparent focus:outline-none text-slate-800 placeholder:text-slate-300"
-              />
+    <div
+        class="w-full text-[10px] min-h-screen flex justify-center items-center bg-slate-50"
+    >
+        <div
+            :class="[
+                'top-0 left-0 w-full h-screen z-50 backdrop-blur-xl bg-black/40',
+                'flex flex-col justify-center items-center gap-4',
+                'transition-opacity duration-500',
+                success ? 'fixed opacity-100' : 'hidden opacity-0',
+            ]"
+        >
+            <div class="w-full h-full flex justify-center items-center">
+                <div class="p-5 rounded-2xl bg-sky-50">
+                    <Loading />
+                </div>
             </div>
-          </div>
-          <div class="flex flex-col gap-1.5">
-            <div class="flex justify-between items-center px-1">
-              <label class="text-sm font-semibold text-slate-700">Mot de passe</label>
-              <router-link to="/inscription" class="text-xs text-orange-600 hover:underline font-medium">
-                Oublié ?
-              </router-link>
+        </div>
+        <div
+            id="box"
+            class="flex-1 flex justify-center items-center rounded-2xl shadow-2xl max-w-4xl bg-amber-400 p-5 w-[95%] mx-auto"
+        >
+            <div class="w-[50%] overflow-hidden lg:block hidden">
+                <img
+                    src="/login.png"
+                    class="drop-shadow-slate-800/30 drop-shadow-2xl"
+                    id="img"
+                    alt=""
+                />
             </div>
-            <div class="flex items-center bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-orange-500 focus-within:border-transparent transition-all">
-              <v-icon name="fa-lock" class="text-slate-400 mr-3" />
-              <input
-                v-model="password"
-                :type="showpassword ? 'text' : 'password'"
-                placeholder="••••••••"
-                class="w-full bg-transparent focus:outline-none text-slate-800 placeholder:text-slate-300"
-              />
-              <button type="button" @click="showpassword = !showpassword" class="text-slate-400 hover:text-slate-600">
-                <v-icon :name="showpassword ? 'fa-eye-slash' : 'fa-eye'" />
-              </button>
-            </div>
-          </div>
-          <div class="flex items-center gap-2 px-1">
-            <input 
-              type="checkbox" 
-              v-model="showpassword" 
-              id="check" 
-              class="w-4 h-4 rounded border-slate-300 text-orange-600 focus:ring-orange-500"
-            />
-            <label for="check" class="text-sm text-slate-600 cursor-pointer select-none">
-              Afficher le mot de passe
-            </label>
-          </div>
-          <button
-            type="submit"
-            class="w-full bg-slate-800 text-white py-3.5 rounded-xl font-bold text-lg hover:bg-slate-900 hover:-translate-y-0.5 active:translate-y-0 transition-all shadow-lg shadow-slate-200"
-          >
-            Se connecter
-          </button>
-          <p class="text-center text-slate-600 text-sm mt-2">
-            Pas encore de compte ? 
-            <router-link to="/inscription" class="text-orange-600 font-bold hover:underline">
-              S'inscrire
-            </router-link>
-          </p>
-          <transition name="fade">
-            <div v-if="error" class="bg-red-50 border-l-4 border-red-500 p-3 rounded flex items-center gap-2">
-              <v-icon name="fa-exclamation-triangle" class="text-red-500" />
-              <p class="text-red-700 text-xs font-medium">{{ error }}</p>
-            </div>
-          </transition>
+            <div
+                id="box2"
+                class="w-full flex flex-col justify-center gap-3 items-center max-w-120 border border-slate-800/20 rounded-2xl shadow-2xl p-6 bg-slate-50"
+            >
+                <h1 class="text-center text-4xl text-slate-700 font-bold">
+                    <span class="text-amber-400">S</span>PAvisiteur
+                </h1>
 
-        </form>
-      </div>
+                <form
+                    @submit.prevent="Valider"
+                    class="w-full flex flex-col max-w-100 gap-3"
+                >
+                    <div class="flex flex-col gap-1">
+                        <div
+                            :class="[
+                                'w-full border rounded-2xl p-3 shadow transition-colors duration-300',
+                                ErrorNom
+                                    ? 'border-red-500 '
+                                    : Nom && !ErrorNom
+                                      ? 'border-green-500 '
+                                      : 'border-slate-300',
+                            ]"
+                        >
+                            <input
+                                type="text"
+                                @input="valideNom"
+                                placeholder="Entrer votre nom"
+                                class="outline-none w-full bg-transparent"
+                                v-model="Nom"
+                            />
+                        </div>
+                        <span v-if="ErrorNom" class="ml-3 text-red-500 text-xs">
+                            {{ ErrorNom }}
+                        </span>
+                    </div>
+
+                    <div class="flex flex-col gap-1">
+                        <div
+                            :class="[
+                                'w-full border rounded-2xl p-3 shadow transition-colors duration-300',
+                                ErrorPwd
+                                    ? 'border-red-500 '
+                                    : Pwd && !ErrorPwd
+                                      ? 'border-green-500 '
+                                      : 'border-slate-300',
+                            ]"
+                        >
+                            <input
+                                @input="validePwd"
+                                :type="viewPwd ? 'text' : 'password'"
+                                placeholder="Entrer votre mot de passe"
+                                class="outline-none w-full bg-transparent"
+                                v-model="Pwd"
+                            />
+                        </div>
+                        <span v-if="ErrorPwd" class="ml-3 text-red-500 text-xs">
+                            {{ ErrorPwd }}
+                        </span>
+                    </div>
+
+                    <!-- Checkbox -->
+                    <div class="flex items-center gap-2 ml-3">
+                        <input
+                            id="check"
+                            v-model="viewPwd"
+                            class="cursor-pointer accent-slate-700"
+                            type="checkbox"
+                        />
+                        <label
+                            for="check"
+                            class="text-xs text-slate-500 cursor-pointer"
+                        >
+                            Afficher le mot de passe
+                        </label>
+                    </div>
+
+                    <div class="w-full flex justify-around gap-3 mt-2">
+                        <button
+                            type="submit"
+                            :class="[
+                                'p-3 rounded-2xl w-full text-white shadow-2xl transition-all duration-300 font-medium',
+                                disable
+                                    ? 'bg-slate-700 cursor-pointer hover:bg-slate-800'
+                                    : 'bg-slate-400 cursor-not-allowed',
+                            ]"
+                            :disabled="!disable"
+                        >
+                            Connexion
+                        </button>
+                        <button
+                            type="button"
+                            @click="$router.push('/inscription')"
+                            class="border-2 p-2 w-full rounded-2xl border-slate-600/30 cursor-pointer duration-300 font-medium hover:bg-slate-100"
+                        >
+                            S'inscrire
+                        </button>
+                    </div>
+                </form>
+                <div class="border-t-2 border-slate-500/30 w-full p-2">
+                    <p
+                        @click="forgotPassword"
+                        class="text-blue-400 text-right cursor-pointer hover:underline"
+                    >
+                        Mot de passe oublié ?
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </template>
-
-<style scoped>
-.fade-enter-active, .fade-leave-active { transition: opacity 0.3s; }
-.fade-enter-from, .fade-leave-to { opacity: 0; }
-</style>
-
-<script setup>
-import { useRouter } from "vue-router";
-import { ref } from "vue";
-import axios from "axios";
-
-const router = useRouter();
-const showpassword = ref(false); // Gère l'affichage (true/false)
-const password = ref('');
-const nom = ref('');
-const error = ref('');
-
-const handleLogin = () => {
-  error.value = ""; // Réinitialiser l'erreur
-
-  if (!nom.value || !password.value) {
-    error.value = "Veuillez remplir tous les champs";
-    return;
-  }
-
-  // Vérification simple des identifiants
-  if (nom.value === "Admin" && password.value === "password") {
-    localStorage.setItem("token", "je_suis_connecter");
-    router.push("/dashboard");
-  } else {
-    error.value = "Nom ou mot de passe incorrect";
-  }
-};
-
-/*
-// Version avec appel à la base de données PHP (à activer plus tard)
-const handleLogin = async () => {
-    error.value = ''; // On réinitialise l'erreur à chaque tentative
-    
-    if (!nom.value || !password.value) {
-        error.value = 'Veuillez remplir tous les champs';
-        return;
-    }
-    try {
-        const datausers = {
-            username: nom.value,
-            password: password.value,
+<script>
+import gsap from "gsap";
+import Loading from "../Layouts/loading.vue";
+export default {
+    data() {
+        return {
+            viewPwd: false,
+            Nom: "",
+            Pwd: "",
+            ErrorNom: "",
+            ErrorPwd: "",
+            disable: false,
+            success: false,
+            errorMessage: "",
         };
+    },
 
-        const res = await axios.post(
-            'http://localhost/Delegg-Hub/SPAvisiteurVuejs/Backend/Login.php',
-             datausers
-        );
+    computed: {
+        validationForm() {
+            return (
+                this.Nom.trim().length >= 3 &&
+                this.Pwd.length >= 6 &&
+                !this.ErrorNom &&
+                !this.ErrorPwd
+            );
+        },
+    },
+
+    watch: {
+        validationForm(val) {
+            this.disable = val;
+        },
+    },
+    
+    components: {
+        Loading,
+    },
+    
+    mounted() {
+        gsap.from("#box", { duration: 1, opacity: 0, y: 50 });
+        gsap.from("#img", { duration: 1, x: 500, delay: 0.8 });
+        gsap.from("#box2", { duration: 1, y: 50, delay: 0.3 });
+    },
+
+    methods: {
+        forgotPassword() {
+            this.$router.push('/forgot');
+        },
         
-        if (res.data.status === "success") {
-            localStorage.setItem('token', 'je_suis_connecter');
-            router.push('/dashboard');
-        } else {
-            error.value = res.data.message; 
-        }
-    } catch (err) {
-        console.log('error:', err);
-        error.value = "Erreur de connexion au serveur";
-    }
+        valideNom() {
+            if (!this.Nom) {
+                this.ErrorNom = "Champ obligatoire";
+            } else if (this.Nom.trim().length < 3) {
+                this.ErrorNom = "Le nom doit contenir au moins 3 caractères";
+            } else {
+                this.ErrorNom = "";
+            }
+        },
+
+        validePwd() {
+            if (!this.Pwd) {
+                this.ErrorPwd = "Champ obligatoire";
+            } else if (this.Pwd.length < 6) {
+                this.ErrorPwd = "Mot de passe invalide (6 caractères minimum)";
+            } else {
+                this.ErrorPwd = "";
+            }
+        },
+
+        Valider() {
+            if (!this.validationForm) {
+                this.errorMessage = "Veuillez vérifier vos informations.";
+                if (!this.Nom) this.ErrorNom = "Champ obligatoire";
+                if (!this.Pwd) this.ErrorPwd = "Champ obligatoire";
+                return;
+            }
+
+     
+            this.success = true;
+
+            setTimeout(() => {
+          
+                localStorage.setItem("token", "authenticated_token_example");
+                this.$router.push("/dashboard");
+            }, 2000);
+        },
+    },
 };
-*/
 </script>
