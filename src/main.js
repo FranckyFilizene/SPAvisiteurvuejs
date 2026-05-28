@@ -4,9 +4,43 @@ import App from "./App.vue";
 import router from "./Router/index";
 
 import { OhVueIcon, addIcons } from "oh-vue-icons";
-import { FaBars, FaGlobe, FaChartLine, FaUserPlus, FaThList, FaSignOutAlt, FaCog, FaBell, FaTrash, FaEdit} from "oh-vue-icons/icons/fa";
+import {
+  FaBars,
+  FaGlobe,
+  FaChartLine,
+  FaUserPlus,
+  FaThList,
+  FaSignOutAlt,
+  FaCog,
+  FaBell,
+  FaTrash,
+  FaEdit,
+  FaUser,
+  FaPhoneAlt,
+  FaCalendarDay,
+  FaDollarSign,
+  FaSave,
+  FaStickyNote,
+} from "oh-vue-icons/icons/fa";
 
-addIcons(FaChartLine,FaGlobe, FaBars , FaUserPlus ,FaThList , FaSignOutAlt ,FaCog , FaBell, FaTrash, FaEdit);
+addIcons(
+  FaChartLine,
+  FaGlobe,
+  FaBars,
+  FaUserPlus,
+  FaThList,
+  FaSignOutAlt,
+  FaCog,
+  FaBell,
+  FaTrash,
+  FaEdit,
+  FaUser,
+  FaPhoneAlt,
+  FaCalendarDay,
+  FaDollarSign,
+  FaSave,
+  FaStickyNote,
+);
 
 const app = createApp(App);
 
