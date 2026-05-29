@@ -132,7 +132,6 @@
     </div>
 </template>
 <script>
-import gsap from "gsap";
 import Loading from "../Layouts/loading.vue";
 
 export default {
