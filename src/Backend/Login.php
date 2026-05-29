@@ -1,47 +1,38 @@
 <?php
-/*
 header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
 
-include 'db.php';
+require_once 'db.php'; // Ce fichier doit contenir tes accès TiDB
 
-$data = json_decode(file_get_contents('php://input'));
+$data = json_decode(file_get_contents("php://input"), true);
 
-if(!$data){
-    echo json_encode([
-        "status" => "error", 
-        "message" => "Aucune donnee recues",
-    ]);
-    exit();
-}
+if (isset($data['username']) && isset($data['password'])) {
+    $login_input = $data['username'];
+    $password_input = $data['password'];
 
-$Nom = $data->nom;
-$Password = $data->password;
+    // On cherche l'utilisateur dans TiDB par son nom OU son email
+    $stmt = mysqli_prepare($conn, "SELECT name, password FROM login WHERE name = ? OR email = ?");
+    mysqli_stmt_bind_param($stmt, "ss", $login_input, $login_input);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $user = mysqli_fetch_assoc($result);
 
-// 1. Chercher l'utilisateur par son nom
-$stmt = $conn->prepare("SELECT * FROM Login WHERE Nom = ?");
-$stmt->bind_param("s", $Nom);
-$stmt->execute();
-$result = $stmt->get_result();
-
-if ($result->num_rows === 1) {
-    $user = $result->fetch_assoc();
-    
-    // 2. Vérifier le mot de passe (Clair vs Hashé)
-    if (password_verify($Password, $user['Motdepass'])) {
+    // Vérification du mot de passe (en clair pour ton test actuel)
+    if ($user && $password_input === $user['password']) {
         echo json_encode([
             "status" => "success", 
             "message" => "Connexion réussie",
-            "user" => $user['Nom']
+            "user" => $user['name']
         ]);
     } else {
-        echo json_encode(["status" => "error", "message" => "Mot de passe incorrect"]);
+        echo json_encode([
+            "status" => "error", 
+            "message" => "Identifiants incorrects"
+        ]);
     }
 } else {
-    echo json_encode(["status" => "error", "message" => "Utilisateur non trouvé"]);
+    echo json_encode(["status" => "error", "message" => "Données incomplètes"]);
 }
-
-$stmt->close();
-$conn->close();
-*/
+?>
