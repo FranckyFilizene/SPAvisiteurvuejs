@@ -27,11 +27,11 @@
           <option>Par Semaine</option>
           <option>Par Mois</option>
         </select>
-          <Bar
+          <!-- <Bar
     id="my-chart-id"
     :options="chartOptions"
     :data="chartData"
-  />
+  /> -->
       </div>
       <div class="flex justify-between bg-white min-h-50 rounded-2xl p-5 shadow-sm border border-slate-100 w-full"> 
           <div>
