@@ -21,20 +21,6 @@ import {
   FaDollarSign,
   FaSave,
   FaStickyNote,
-  FaMapMarkerAlt,
-  FaEye,
-  FaSearch,
-  FaCheckCircle,
-  FaPlane,
-  FaFilter,
-  FaSyncAlt,
-  FaUsers,
-  FaSort,
-  FaTimesCircle,
-  FaLock,
-  FaEnvelope,
-  FaUserEdit,
-  FaExclamationTriangle,
 } from "oh-vue-icons/icons/fa";
 
 addIcons(
@@ -54,20 +40,6 @@ addIcons(
   FaDollarSign,
   FaSave,
   FaStickyNote,
-  FaMapMarkerAlt,
-  FaEye,
-  FaSearch,
-  FaCheckCircle,
-  FaPlane,
-  FaFilter,
-  FaSyncAlt,
-  FaUsers,
-  FaSort,
-  FaTimesCircle,
-  FaLock,
-  FaEnvelope,
-  FaUserEdit,
-  FaExclamationTriangle,
 );
 
 const app = createApp(App);
