@@ -46,7 +46,7 @@
                                 type="text"
                                 @input="valideNom"
                                 placeholder="Entrer votre nom"
-                                class="outline-none w-full bg-transparent"
+                                class="outline-none text-slate-800 text-xs w-full bg-transparent placeholder:text-slate-400"
                                 v-model="Nom"
                             />
                         </div>
@@ -72,7 +72,7 @@
                                 type="text"
                                 @input="validePrenom"
                                 placeholder="Entrer votre prénom"
-                                class="outline-none w-full bg-transparent"
+                                class="outline-none text-slate-800 text-xs w-full bg-transparent placeholder:text-slate-400"
                                 v-model="Prenom"
                             />
                         </div>
@@ -98,7 +98,7 @@
                                 type="email"
                                 @input="valideEmail"
                                 placeholder="Entrer votre email"
-                                class="outline-none w-full bg-transparent"
+                                class="outline-none text-slate-800 text-xs w-full bg-transparent placeholder:text-slate-400"
                                 v-model="Email"
                             />
                         </div>
@@ -124,7 +124,7 @@
                                 @input="validePwd"
                                 :type="viewPwd ? 'text' : 'password'"
                                 placeholder="Créer votre mot de passe"
-                                class="outline-none w-full bg-transparent"
+                                class="outline-none text-slate-800 text-xs w-full bg-transparent placeholder:text-slate-400"
                                 v-model="Pwd"
                             />
                         </div>
@@ -150,7 +150,7 @@
                                 @input="valideConfirmPwd"
                                 :type="viewPwd ? 'text' : 'password'"
                                 placeholder="Confirmer votre mot de passe"
-                                class="outline-none w-full bg-transparent"
+                                class="outline-none text-slate-800 text-xs w-full bg-transparent placeholder:text-slate-400"
                                 v-model="ConfirmPwd"
                             />
                         </div>
@@ -161,16 +161,16 @@
                         >
                     </div>
 
-                    <div class="flex items-center gap-2 ml-3">
+                    <div class="flex items-center gap-2 ml-1">
                         <input
                             id="check"
                             v-model="viewPwd"
-                            class="cursor-pointer accent-slate-700"
                             type="checkbox"
+                            class="checkbox w-4 h-4 checkbox-sm checkbox-warning"
                         />
                         <label
                             for="check"
-                            class="text-xs text-slate-500 cursor-pointer"
+                            class="text-xs text-slate-500 cursor-pointer select-none"
                             >Afficher le mot de passe</label
                         >
                     </div>

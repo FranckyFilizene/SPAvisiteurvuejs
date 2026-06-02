@@ -55,7 +55,7 @@
                                 type="text"
                                 @input="valideNom"
                                 placeholder="Entrer votre nom"
-                                class="outline-none w-full bg-transparent"
+                                class="outline-none text-slate-800 text-xs w-full bg-transparent placeholder:text-slate-400"
                                 v-model="Nom"
                             />
                         </div>
@@ -79,7 +79,7 @@
                                 @input="validePwd"
                                 :type="viewPwd ? 'text' : 'password'"
                                 placeholder="Entrer votre mot de passe"
-                                class="outline-none w-full bg-transparent"
+                                class="outline-none text-slate-800 text-xs w-full bg-transparent placeholder:text-slate-400"
                                 v-model="Pwd"
                             />
                         </div>
@@ -88,30 +88,30 @@
                         </span>
                     </div>
 
-                    <!-- Checkbox -->
-                    <div class="flex items-center gap-2 ml-3">
+       
+                    <div class="flex items-center gap-2 ml-1">
                         <input
                             id="check"
                             v-model="viewPwd"
-                            class="cursor-pointer accent-slate-700"
                             type="checkbox"
+                            class="checkbox w-4 h-4 checkbox-sm checkbox-warning"
                         />
                         <label
                             for="check"
-                            class="text-xs text-slate-500 cursor-pointer"
+                            class="text-xs text-slate-500 cursor-pointer select-none"
                         >
                             Afficher le mot de passe
                         </label>
                     </div>
 
-                    <div class="w-full flex justify-around gap-3 mt-2">
+                    <div class="w-full flex gap-3 mt-2">
                         <button
                             type="submit"
                             :class="[
-                                'p-3 rounded-2xl w-full text-white shadow-2xl transition-all duration-300 font-medium',
+                                'flex-1 p-3 rounded-2xl text-white text-xs font-semibold shadow-md transition-all duration-300',
                                 disable
-                                    ? 'bg-slate-700 cursor-pointer hover:bg-slate-800'
-                                    : 'bg-slate-400 cursor-not-allowed',
+                                    ? 'bg-slate-700 hover:bg-slate-800 cursor-pointer'
+                                    : 'bg-slate-300 cursor-not-allowed',
                             ]"
                             :disabled="!disable"
                         >
@@ -120,7 +120,7 @@
                         <button
                             type="button"
                             @click="$router.push('/inscription')"
-                            class="border-2 p-2 w-full rounded-2xl border-slate-600/30 cursor-pointer duration-300 font-medium hover:bg-slate-100"
+                            class="flex-1 p-3 rounded-2xl text-xs font-semibold text-amber-500 border-2 border-amber-400 hover:bg-amber-400 hover:text-white transition-all duration-300 cursor-pointer"
                         >
                             S'inscrire
                         </button>
