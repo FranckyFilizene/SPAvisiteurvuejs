@@ -11,7 +11,7 @@
 
                 <div class="flex gap-2 flex-col">
                     <button
-                        class="bg-blue-500/20 border text-slate-800 font-medium border-slate-800 gap-2 cursor-pointer rounded-xl flex items-center justify-center p-2 hover:bg-slate-500/30 transition-colors duration-300"
+                        class="bg-blue-500/20 btn btn-neutral text-[10px] border text-slate-800 font-medium border-slate-800 gap-2 cursor-pointer rounded-xl flex items-center justify-center p-2 hover:bg-slate-500/30 transition-colors duration-300"
                         @click="$router.push('/parametre')"
                     >
                         <div class="scale-x-[-1]">
@@ -20,7 +20,7 @@
                         Parametre
                     </button>
                     <button
-                        class="bg-red-500/20 border text-red-600 font-medium border-red-500 gap-2 cursor-pointer rounded-xl flex items-center justify-center p-2 hover:bg-red-500/30 transition-colors duration-300"
+                        class="bg-red-500/20 btn text-[10px] bnt-error border text-red-600 font-medium border-red-500 gap-2 cursor-pointer rounded-xl flex items-center justify-center p-2 hover:bg-red-500/30 transition-colors duration-300"
                         @click="logout"
                     >
                         <div class="scale-x-[-1]">

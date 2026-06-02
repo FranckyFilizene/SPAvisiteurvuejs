@@ -164,7 +164,7 @@ div::-webkit-scrollbar {
 </style>
 
 <script setup>
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed, watch } from "vue";
 import axios from "axios";
 
 const erreur = ref('');
@@ -237,22 +237,11 @@ const handleUpdate = async () => {
   }
 };
 
-const handleact = () => {
-  fetchdata();
-  succes.value = '';
-  erreur.value = '';
-}
+const handleact = async () => {
+    succes.value = "";
+    erreur.value = "";
+    await fetchdata();
+};
 
-const dayslist = ref([
-  "tout",
-  "dernier jour",
-  "dernier semaine",
-  "dernier mois",
-]);
-
-const selectedDay = ref("");
-
-onMounted(() => {
-  fetchdata();
-})
+onMounted(() => fetchdata());
 </script>

@@ -138,10 +138,8 @@
         </div>
     </div>
 </template>
-
 <script>
 import Loading from "../Layouts/loading.vue";
-
 export default {
     data() {
         return {
