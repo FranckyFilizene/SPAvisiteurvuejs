@@ -5,13 +5,13 @@
     >
         <div class="flex gap-5 flex-1 max-h-200 h-[95vh]">
             <div
-                class="bg-amber-400 hidden lg:flex flex-col w-50 justify-between p-5 rounded-xl shadow-2xl"
+                class="bg-amber-400 hidden lg:flex flex-col w-40 justify-between p-5 rounded-xl shadow-2xl"
             >
                 <Aside />
 
                 <div class="flex gap-2 flex-col">
                     <button
-                        class="bg-blue-500/20 border text-slate-800 font-medium border-slate-800 gap-2 cursor-pointer rounded-xl flex items-center justify-center p-3 hover:bg-slate-500/30 transition-colors duration-300"
+                        class="bg-blue-500/20 border text-slate-800 font-medium border-slate-800 gap-2 cursor-pointer rounded-xl flex items-center justify-center p-2 hover:bg-slate-500/30 transition-colors duration-300"
                         @click="$router.push('/parametre')"
                     >
                         <div class="scale-x-[-1]">
@@ -20,8 +20,8 @@
                         Parametre
                     </button>
                     <button
-                        class="bg-red-500/20 border text-red-600 font-medium border-red-500 gap-2 cursor-pointer rounded-xl flex items-center justify-center p-3 hover:bg-red-500/30 transition-colors duration-300"
-                        @click="lougout"
+                        class="bg-red-500/20 border text-red-600 font-medium border-red-500 gap-2 cursor-pointer rounded-xl flex items-center justify-center p-2 hover:bg-red-500/30 transition-colors duration-300"
+                        @click="logout"
                     >
                         <div class="scale-x-[-1]">
                             <v-icon name="fa-sign-out-alt" />
@@ -58,7 +58,7 @@
                     </div>
                     <button
                         class="bg-red-500/20 border text-red-600 font-medium border-red-500 gap-2 cursor-pointer rounded-xl flex items-center justify-center p-3 hover:bg-red-500/30 transition-colors"
-                        @click="lougout"
+                        @click="logout"
                     >
                         <div class="scale-x-[-1]">
                             <v-icon name="fa-sign-out-alt" />
@@ -91,11 +91,11 @@
                     </button>
                 </div>
                 <div
-                    class="w-full bg-amber-400/10 overflow-hidden rounded-xl p-2 shadow-2xl border border-amber-400"
+                    class="w-full bg-amber-400/10  overflow-auto rounded-xl p-2 shadow-2xl border border-amber-400"
                 >
-                    <div>
+                  
                         <router-view />
-                    </div>
+                
                 </div>
             </div>
         </div>
@@ -103,8 +103,6 @@
 </template>
 
 <script>
-import { FaBullseye, FaHSquare } from "oh-vue-icons/icons/fa";
-
 import { gridstylebg } from "../Router/styledefault";
 import Aside from "./aside.vue";
 
@@ -113,6 +111,12 @@ export default {
         return {
             gridstylebg,
             mobileMenuOpen: false,
+            date: new Date().toLocaleDateString("fr-FR", {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+            }),
             menuItems: [
                 {
                     label: "Dashboard",
@@ -129,7 +133,7 @@ export default {
         Aside,
     },
     methods: {
-        lougout() {
+        logout() {
             localStorage.removeItem("token");
             this.$router.push("/login");
         },

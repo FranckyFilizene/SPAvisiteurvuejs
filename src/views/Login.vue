@@ -138,8 +138,10 @@
         </div>
     </div>
 </template>
+
 <script>
 import Loading from "../Layouts/loading.vue";
+
 export default {
     data() {
         return {
@@ -170,11 +172,11 @@ export default {
             this.disable = val;
         },
     },
-    
+
     components: {
         Loading,
     },
-    
+
     mounted() {
         gsap.from("#box", { duration: 1, opacity: 0, y: 50 });
         gsap.from("#img", { duration: 1, x: 500, delay: 0.8 });
@@ -183,9 +185,9 @@ export default {
 
     methods: {
         forgotPassword() {
-            this.$router.push('/forgot');
+            this.$router.push("/forgot");
         },
-        
+
         valideNom() {
             if (!this.Nom) {
                 this.ErrorNom = "Champ obligatoire";
@@ -214,11 +216,9 @@ export default {
                 return;
             }
 
-     
             this.success = true;
 
             setTimeout(() => {
-          
                 localStorage.setItem("token", "authenticated_token_example");
                 this.$router.push("/dashboard");
             }, 2000);
