@@ -36,7 +36,7 @@
                     <th className='py-3 px-6 border-b border-gray-400'>Tarif (Ar)</th>
                     <th className='py-3 px-6 border-b border-gray-400 font-bold'>Total (Ar)</th>
                     <th className='py-3 px-6 border-b border-gray-400'>Action</th>
-                  </td>
+                  </tr>
                 </thead>
                 <tbody class="text-slate-700 text-sm font-light overflow-auto">
                   <tr v-if="filteredVisiteurs.length === 0">
