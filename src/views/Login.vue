@@ -105,7 +105,8 @@
                     </div>
 
                     <div class="w-full flex justify-around gap-3 mt-2">
-                        <button
+                        <!-- <button
+                            @click="Valider"
                             type="submit"
                             :class="[
                                 'p-3 rounded-2xl w-full text-white shadow-2xl transition-all duration-300 font-medium',
@@ -116,6 +117,9 @@
                             :disabled="!disable"
                         >
                             Connexion
+                        </button> -->
+                        <button @click="connexion" class="p-3 rounded-2xl bg-amber-400 cursor-pointer w-full text-white shadow-2xl transition-all duration-300 font-medium">
+                            connexion
                         </button>
                         <button
                             type="button"
@@ -205,6 +209,11 @@ export default {
                 this.ErrorPwd = "";
             }
         },
+
+        connexion() {
+          this.$router.push("/dashboard");
+
+        } ,
 
         Valider() {
             if (!this.validationForm) {

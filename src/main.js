@@ -21,6 +21,7 @@ import {
   FaDollarSign,
   FaSave,
   FaStickyNote,
+  FaPlus,
 } from "oh-vue-icons/icons/fa";
 
 addIcons(
@@ -34,6 +35,7 @@ addIcons(
   FaBell,
   FaTrash,
   FaEdit,
+  FaPlus ,
   FaUser,
   FaPhoneAlt,
   FaCalendarDay,
