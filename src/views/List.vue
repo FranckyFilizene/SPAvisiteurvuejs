@@ -29,7 +29,7 @@
             <div className='overflow-x-auto h-150'>
               <table className='w-full text-left border-collapse'>
                 <thead>
-                  <tr className='bg-slate-300 sticky top-0 text-[10px] text-slate-700 uppercase text-sm leading-normal'>
+                  <td className='bg-slate-300 sticky top-0 text-[10px] text-slate-700 uppercase text-sm leading-normal'>
                     <th className='py-3 px-6 border-b border-gray-400'>Nom</th>
                     <th className='py-3 px-6 border-b border-gray-400'>Numéro</th>
                     <th className='py-3 px-6 border-b border-gray-400'>Jours</th>
