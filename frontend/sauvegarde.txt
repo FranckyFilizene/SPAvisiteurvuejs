@@ -1,0 +1,661 @@
+<template>
+    <div class="w-full flex items-center justify-center min-h-screen">
+        <div class="flex-1">
+            <img src="/public/Filing system-pana.svg" class="w-xl" alt="">
+        </div>
+        <div class="flex-1">
+            <div class="mb-4">
+                <div class="badge">visiteur.com</div>
+                <h1 class="text-8xl font-bold">Register</h1>
+            </div>
+            
+            <!-- Message de succès/erreur -->
+            <div v-if="message" :class="['alert', messageType]">
+                {{ message }}
+            </div>
+            
+            <form @submit.prevent="handleRegister" class="w-full max-w-150 card">
+                <div class="flex gap-2 w-full">
+                    <div class="card flex-1 card-actions">
+                        <label>Name</label>
+                        <input 
+                            v-model="form.name" 
+                            type="text" 
+                            placeholder="Ex:Admin" 
+                            class="input w-full"
+                            :class="{ 'input-error': errors.name }"
+                        >
+                        <span v-if="errors.name" class="text-error text-sm">{{ errors.name }}</span>
+                    </div>
+                    <div class="card flex-1 card-actions">
+                        <label>User name</label>
+                        <input 
+                            v-model="form.username" 
+                            type="text" 
+                            placeholder="Ex:Admin0000" 
+                            class="input w-full"
+                            :class="{ 'input-error': errors.username }"
+                        >
+                        <span v-if="errors.username" class="text-error text-sm">{{ errors.username }}</span>
+                    </div>
+                </div>
+                
+                <div class="card card-actions">
+                    <label>Téléphone</label>
+                    <input 
+                        v-model="form.telephone" 
+                        type="tel" 
+                        placeholder="Ex:034 XX XXX XX" 
+                        class="input w-full"
+                        :class="{ 'input-error': errors.telephone }"
+                    >
+                    <span v-if="errors.telephone" class="text-error text-sm">{{ errors.telephone }}</span>
+                </div>
+                
+                <div class="card card-actions">
+                    <label>Email</label>
+                    <input 
+                        v-model="form.email" 
+                        type="email" 
+                        placeholder="Ex:Admin@gmail.com" 
+                        class="input w-full"
+                        :class="{ 'input-error': errors.email }"
+                    >
+                    <span v-if="errors.email" class="text-error text-sm">{{ errors.email }}</span>
+                </div>
+                
+                <div class="card card-actions">
+                    <label>Mot de passe</label>
+                    <div class="input flex w-full" :class="{ 'input-error': errors.password }">
+                        <input 
+                            v-model="form.password" 
+                                    :type="showPassword ? 'text' : 'password'"
+                            placeholder="Votre mot de passe"
+                            class="flex-1"
+                        >
+                        <button type="button" @click="showPassword = !showPassword" class="btn-ghost">
+                            <v-icon :name="showPassword ? 'fa-eye-slash' : 'fa-eye'" />
+                        </button>
+                    </div>
+                    <span v-if="errors.password" class="text-error text-sm">{{ errors.password }}</span>
+                </div>
+                
+                <div class="card card-actions">
+                    <label>Confirmer le mot de passe</label>
+                    <div class="input flex w-full" :class="{ 'input-error': errors.confirmPassword }">
+                        <input 
+                            v-model="form.confirmPassword" 
+                            :type="showConfirmPassword ? 'text' : 'password'"
+                            placeholder="Confirmez votre mot de passe"
+                            class="flex-1"
+                        >
+                        <button type="button" @click="showConfirmPassword = !showConfirmPassword" class="btn-ghost">
+                            <v-icon :name="showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'" />
+                        </button>
+                    </div>
+                    <span v-if="errors.confirmPassword" class="text-error text-sm">{{ errors.confirmPassword }}</span>
+                </div>
+                
+                <div class="flex w-full justify-between my-3">
+                    <label for="check" class="label">
+                        <input 
+                            id="check" 
+                            v-model="form.acceptTerms" 
+                            class="checkbox checkbox-sm" 
+                            type="checkbox"
+                        >
+                        Accepter les termes et conditions
+                    </label>
+                    <span v-if="errors.acceptTerms" class="text-error text-sm">{{ errors.acceptTerms }}</span>
+                </div>
+                
+                <div class="mt-2 flex justify-between flex-wrap gap-3">
+                    <button type="submit" class="btn flex-1" :disabled="loading">
+                        <span v-if="loading" class="loading loading-spinner loading-sm"></span>
+                        {{ loading ? 'Inscription...' : 'Register' }}
+                    </button>
+                    <router-link class="btn btn-outline flex-1" to="/">Login</router-link>
+                </div>
+                <div class="divider w-full h-px"></div>
+            </form>
+        </div>
+    </div>
+</template>
+
+<script setup>
+import { reactive, ref } from 'vue'
+import axios from 'axios'
+import { useRouter } from 'vue-router'
+
+// Router pour rediriger après inscription
+const router = useRouter()
+
+// État du formulaire
+const form = reactive({
+    name: '',
+    username: '',
+    telephone: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    acceptTerms: false
+})
+
+// États UI
+const loading = ref(false)
+const message = ref('')
+const messageType = ref('') // 'success' ou 'error'
+const showPassword = ref(false)
+const showConfirmPassword = ref(false)
+const errors = reactive({
+    name: '',
+    username: '',
+    telephone: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    acceptTerms: ''
+})
+
+// Fonction de validation
+const validateForm = () => {
+    let isValid = true
+    
+    // Réinitialiser les erreurs
+    Object.keys(errors).forEach(key => errors[key] = '')
+    
+    // Validation Name
+    if (!form.name || form.name.length < 2) {
+        errors.name = 'Le nom doit contenir au moins 2 caractères'
+        isValid = false
+    }
+    
+    // Validation Username
+    if (!form.username || form.username.length < 4) {
+        errors.username = "Le nom d'utilisateur doit contenir au moins 4 caractères"
+        isValid = false
+    }
+    
+    // Validation Email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!form.email || !emailRegex.test(form.email)) {
+        errors.email = 'Email invalide'
+        isValid = false
+    }
+    
+    // Validation Téléphone (optionnel mais formaté)
+    if (form.telephone && !/^[0-9+\s\-]{10,}$/.test(form.telephone)) {
+        errors.telephone = 'Numéro de téléphone invalide'
+        isValid = false
+    }
+    
+    // Validation Mot de passe
+    if (!form.password || form.password.length < 6) {
+        errors.password = 'Le mot de passe doit contenir au moins 6 caractères'
+        isValid = false
+    }
+    
+    // Validation Confirmation
+    if (form.password !== form.confirmPassword) {
+        errors.confirmPassword = 'Les mots de passe ne correspondent pas'
+        isValid = false
+    }
+    
+    // Validation des termes
+    if (!form.acceptTerms) {
+        errors.acceptTerms = 'Vous devez accepter les termes et conditions'
+        isValid = false
+    }
+    
+    return isValid
+}
+
+// Fonction d'inscription
+const handleRegister = async () => {
+    // Vider les messages précédents
+    message.value = ''
+    messageType.value = ''
+    
+    // Valider le formulaire
+    if (!validateForm()) {
+        return
+    }
+    
+    loading.value = true
+    
+    try {
+        // Préparer les données à envoyer
+        const userData = {
+            name: form.name,
+            username: form.username,
+            telephone: form.telephone,
+            email: form.email,
+            password: form.password
+        }
+        
+        // Envoyer au backend PHP
+        const response = await axios.post(
+            'http://localhost/backend/register.php',
+            userData,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            }
+        )
+        
+        // Succès
+        message.value = response.data.message || 'Inscription réussie !'
+        messageType.value = 'success'
+        
+        // Réinitialiser le formulaire
+        Object.assign(form, {
+            name: '',
+            username: '',
+            telephone: '',
+            email: '',
+            password: '',
+            confirmPassword: '',
+            acceptTerms: false
+        })
+        
+        // Rediriger vers la page de login après 2 secondes
+        setTimeout(() => {
+            router.push('/login')
+        }, 2000)
+        
+    } catch (error) {
+        // Gestion des erreurs
+        if (error.response) {
+            if (error.response.status === 422) {
+                // Erreurs de validation du serveur
+                const serverErrors = error.response.data.errors || {}
+                Object.keys(serverErrors).forEach(key => {
+                    if (errors[key] !== undefined) {
+                        errors[key] = serverErrors[key]
+                    }
+                })
+                message.value = 'Veuillez corriger les erreurs'
+            } else if (error.response.status === 409) {
+                // Conflit (email ou username déjà utilisé)
+                message.value = error.response.data.message || 'Cet email ou nom d\'utilisateur existe déjà'
+            } else {
+                message.value = error.response.data.message || 'Erreur lors de l\'inscription'
+            }
+        } else if (error.request) {
+            message.value = 'Impossible de contacter le serveur. Vérifiez votre connexion.'
+        } else {
+            message.value = 'Erreur: ' + error.message
+        }
+        messageType.value = 'error'
+        
+    } finally {
+        loading.value = false
+        
+        // Cacher le message après 5 secondes
+        setTimeout(() => {
+            message.value = ''
+        }, 5000)
+    }
+}
+</script>
+
+<style scoped>
+.input-error {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 0 1px #ef4444 !important;
+}
+
+.text-error {
+    color: #ef4444;
+}
+
+.alert {
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+
+.alert.success {
+    background-color: #dcfce7;
+    color: #166534;
+    border: 1px solid #86efac;
+}
+
+.alert.error {
+    background-color: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fca5a5;
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.loading {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 8px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+</style>
+
+
+<?php
+// register.php
+header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, Authorization');
+
+// Gestion des requêtes OPTIONS (CORS pre-flight)
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
+
+// Vérification de la méthode HTTP
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+    echo json_encode(['success' => false, 'message' => 'Méthode non autorisée']);
+    exit;
+}
+
+// Récupération des données JSON
+$input = json_decode(file_get_contents('php://input'), true);
+
+if (!$input) {
+    http_response_code(400);
+    echo json_encode(['success' => false, 'message' => 'Données invalides']);
+    exit;
+}
+
+// --- Validation des données ---
+$errors = [];
+
+// Validation Name
+if (empty($input['name']) || strlen($input['name']) < 2) {
+    $errors['name'] = 'Le nom doit contenir au moins 2 caractères';
+}
+
+// Validation Username
+if (empty($input['username']) || strlen($input['username']) < 4) {
+    $errors['username'] = "Le nom d'utilisateur doit contenir au moins 4 caractères";
+}
+
+// Validation Email
+$email = filter_var($input['email'], FILTER_SANITIZE_EMAIL);
+if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $errors['email'] = 'Email invalide';
+}
+
+// Validation Téléphone (optionnel)
+if (!empty($input['telephone'])) {
+    $telephone = preg_replace('/[^0-9+]/', '', $input['telephone']);
+    if (strlen($telephone) < 10) {
+        $errors['telephone'] = 'Numéro de téléphone invalide';
+    }
+}
+
+// Validation Mot de passe
+if (empty($input['password']) || strlen($input['password']) < 6) {
+    $errors['password'] = 'Le mot de passe doit contenir au moins 6 caractères';
+}
+
+// Si des erreurs, on renvoie une réponse 422
+if (!empty($errors)) {
+    http_response_code(422);
+    echo json_encode([
+        'success' => false,
+        'message' => 'Erreurs de validation',
+        'errors' => $errors
+    ]);
+    exit;
+}
+
+try {
+    // --- Connexion à la base de données ---
+    $host = 'localhost';
+    $dbname = 'ma_base';
+    $username = 'root';
+    $password = '';
+    
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    // --- Vérifier si l'email existe déjà ---
+    $checkEmail = $pdo->prepare("SELECT id FROM users WHERE email = :email");
+    $checkEmail->execute([':email' => $email]);
+    
+    if ($checkEmail->rowCount() > 0) {
+        http_response_code(409);
+        echo json_encode([
+            'success' => false,
+            'message' => 'Cet email est déjà utilisé'
+        ]);
+        exit;
+    }
+    
+    // --- Vérifier si le username existe déjà ---
+    $checkUsername = $pdo->prepare("SELECT id FROM users WHERE username = :username");
+    $checkUsername->execute([':username' => $input['username']]);
+    
+    if ($checkUsername->rowCount() > 0) {
+        http_response_code(409);
+        echo json_encode([
+            'success' => false,
+            'message' => "Ce nom d'utilisateur est déjà utilisé"
+        ]);
+        exit;
+    }
+    
+    // --- Hachage du mot de passe ---
+    $hashedPassword = password_hash($input['password'], PASSWORD_DEFAULT);
+    
+    // --- Insertion en base de données ---
+    $sql = "INSERT INTO users (name, username, telephone, email, password, created_at) 
+            VALUES (:name, :username, :telephone, :email, :password, NOW())";
+    
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([
+        ':name' => htmlspecialchars($input['name']),
+        ':username' => htmlspecialchars($input['username']),
+        ':telephone' => $telephone ?? null,
+        ':email' => $email,
+        ':password' => $hashedPassword
+    ]);
+    
+    $userId = $pdo->lastInsertId();
+    
+    // --- Succès ---
+    http_response_code(201);
+    echo json_encode([
+        'success' => true,
+        'message' => 'Inscription réussie ! Vous pouvez maintenant vous connecter.',
+        'userId' => $userId
+    ]);
+    
+} catch (PDOException $e) {
+    // Erreur base de données
+    http_response_code(500);
+    echo json_encode([
+        'success' => false,
+        'message' => 'Erreur lors de l\'inscription. Veuillez réessayer.'
+    ]);
+    
+    // Log de l'erreur (à mettre en place en production)
+    error_log('Erreur BDD Register: ' . $e->getMessage());
+}
+
+
+-- Table users
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    telephone VARCHAR(20),
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    last_login TIMESTAMP NULL,
+    is_active BOOLEAN DEFAULT TRUE,
+    INDEX idx_email (email),
+    INDEX idx_username (username)
+);
+
+-- Table pour les sessions ou tokens (optionnel)
+CREATE TABLE user_tokens (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    token VARCHAR(255) NOT NULL,
+    expires_at TIMESTAMP NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    INDEX idx_token (token)
+);
+
+
+// frontend/src/services/api.js
+import axios from 'axios'
+
+const API_BASE_URL = 'http://localhost/backend/'
+
+const api = axios.create({
+    baseURL: API_BASE_URL,
+    timeout: 15000,
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+    }
+})
+
+// Intercepteur pour les requêtes
+api.interceptors.request.use(
+    config => {
+        // Ajouter le token si l'utilisateur est connecté
+        const token = localStorage.getItem('authToken')
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`
+        }
+        return config
+    },
+    error => Promise.reject(error)
+)
+
+// Intercepteur pour les réponses
+api.interceptors.response.use(
+    response => response,
+    error => {
+        if (error.response) {
+            // Gestion des erreurs spécifiques
+            switch (error.response.status) {
+                case 401:
+                    // Non authentifié
+                    localStorage.removeItem('authToken')
+                    window.location.href = '/login'
+                    break
+                case 403:
+                    // Accès interdit
+                    console.error('Accès refusé')
+                    break
+                case 404:
+                    console.error('Ressource non trouvée')
+                    break
+                case 500:
+                    console.error('Erreur serveur')
+                    break
+            }
+        }
+        return Promise.reject(error)
+    }
+)
+
+export default api
+
+// Fonctions spécifiques
+export const register = (userData) => api.post('/register.php', userData)
+export const login = (credentials) => api.post('/login.php', credentials)
+export const getUser = () => api.get('/user.php')
+export const updateUser = (data) => api.put('/user.php', data)
+
+
+
+<script setup>
+import { reactive, ref } from 'vue'
+import { register } from '@/services/api'  // Import du service
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+// ... le reste du code
+
+const handleRegister = async () => {
+    if (!validateForm()) return
+    
+    loading.value = true
+    
+    try {
+        const response = await register({
+            name: form.name,
+            username: form.username,
+            telephone: form.telephone,
+            email: form.email,
+            password: form.password
+        })
+        
+        // Succès...
+        message.value = response.data.message
+        messageType.value = 'success'
+        
+        setTimeout(() => router.push('/login'), 2000)
+        
+    } catch (error) {
+        // Gestion d'erreur...
+    } finally {
+        loading.value = false
+    }
+}
+</script>
+
+
+
+# .env (frontend)
+VITE_API_URL=http://localhost/backend/
+
+# .env (backend)
+DB_HOST=localhost
+DB_NAME=ma_base
+DB_USER=root
+DB_PASS=
+JWT_SECRET=votre_secret_jwt
+
+
+
+<div class="password-strength">
+    <div class="strength-bar" :style="{ width: passwordStrength + '%' }"></div>
+    <span>{{ passwordStrengthText }}</span>
+</div>
+
+<script>
+const passwordStrength = computed(() => {
+    const pass = form.password
+    let score = 0
+    if (pass.length >= 8) score += 25
+    if (/[a-z]/.test(pass) && /[A-Z]/.test(pass)) score += 25
+    if (/\d/.test(pass)) score += 25
+    if (/[^a-zA-Z0-9]/.test(pass)) score += 25
+    return score
+})
+</script>
